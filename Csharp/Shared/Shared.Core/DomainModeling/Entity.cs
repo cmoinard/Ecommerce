@@ -3,9 +3,10 @@ using System.Collections.Generic;
 namespace Shared.Core.DomainModeling
 {
     public abstract class Entity<TId>
+        where TId : notnull
     {
         protected Entity()
-            : this(default)
+            : this(default!)
         {
         }
         

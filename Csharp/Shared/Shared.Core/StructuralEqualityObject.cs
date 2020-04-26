@@ -7,7 +7,7 @@ namespace Shared.Core
     {
         protected abstract IEnumerable<object> GetEqualityComponents();
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
                 return false;

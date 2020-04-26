@@ -6,11 +6,11 @@ using Shared.Core.Extensions;
 
 namespace ProductCatalog.ApplicationServices.Products.UseCases
 {
-    public class ChangeNameProductUseCase : ProductUseCaseBase
+    public class ChangeNameUseCase : ProductUseCaseBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public ChangeNameProductUseCase(
+        public ChangeNameUseCase(
             IProductsRepository repository,
             IUnitOfWork unitOfWork)
             : base(repository)

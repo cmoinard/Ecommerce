@@ -20,5 +20,8 @@ namespace Shared.Core
         {
             yield return _value;
         }
+        
+        public static explicit operator string(NonEmptyString nonEmptyString) => 
+            nonEmptyString._value;
     }
 }

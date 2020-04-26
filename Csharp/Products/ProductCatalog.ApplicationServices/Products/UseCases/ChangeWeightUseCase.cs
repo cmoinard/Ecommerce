@@ -24,7 +24,7 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             if (weightInGrams < 0)
                 throw new ValidationException(new NegativeWeightValidationError());
 
-            product.Weight = Weight.Grams((uint)weightInGrams);
+            product.Weight = Weight.Grams(weightInGrams);
 
             await _unitOfWork.SaveChangesAsync();
         }

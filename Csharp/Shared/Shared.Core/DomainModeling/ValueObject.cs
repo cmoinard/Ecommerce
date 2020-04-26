@@ -23,5 +23,8 @@ namespace Shared.Core.DomainModeling
 
         public override string ToString() => 
             _value.ToString()!;
+
+        public static explicit operator T(SimpleValueObject<T> valueObject) => 
+            valueObject._value;
     }
 }

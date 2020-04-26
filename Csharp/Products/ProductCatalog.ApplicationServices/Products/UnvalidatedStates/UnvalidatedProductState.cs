@@ -51,7 +51,7 @@ namespace ProductCatalog.ApplicationServices.Products.UnvalidatedStates
                 Name.ToNonEmpty(),
                 Description.ToNonEmpty(),
                 DimensionState.ToDomain(),
-                Weight.Grams((uint)WeightInGrams),
+                Weight.Grams(WeightInGrams),
                 CategoryIds.ToNonEmptyList());
     }
     

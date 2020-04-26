@@ -29,9 +29,9 @@ namespace ProductCatalog.ApplicationServices.Products.UnvalidatedStates
 
         public Dimension ToDomain() =>
             new Dimension(
-                Size.Cm((uint) Length),
-                Size.Cm((uint) Width),
-                Size.Cm((uint) Height)
+                Size.Cm(Length),
+                Size.Cm(Width),
+                Size.Cm(Height)
             );
     }
 

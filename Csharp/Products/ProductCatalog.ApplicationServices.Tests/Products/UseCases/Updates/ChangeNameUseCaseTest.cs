@@ -22,7 +22,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
         {
             var id = new ProductId(Guid.NewGuid());
             var useCase = 
-                new ChangeNameProductUseCase(
+                new ChangeNameUseCase(
                     RepositoryThatCantFindProduct(),
                     Substitute.For<IUnitOfWork>());
 
@@ -38,7 +38,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
         {
             var product = ProductSamples.TypeMatrix();
             var useCase = 
-                new ChangeNameProductUseCase(
+                new ChangeNameUseCase(
                     RepositoryNameExistsReturning(false, product),
                     Substitute.For<IUnitOfWork>());
 
@@ -52,7 +52,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
         {
             var product = ProductSamples.TypeMatrix();
             var useCase = 
-                new ChangeNameProductUseCase(
+                new ChangeNameUseCase(
                     RepositoryNameExistsReturning(true, product),
                     Substitute.For<IUnitOfWork>());
 
@@ -68,7 +68,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
             var product = ProductSamples.TypeMatrix();
             var unitOfWork = Substitute.For<IUnitOfWork>();
             var useCase = 
-                new ChangeNameProductUseCase(
+                new ChangeNameUseCase(
                     RepositoryNameExistsReturning(false, product),
                     unitOfWork);
             
