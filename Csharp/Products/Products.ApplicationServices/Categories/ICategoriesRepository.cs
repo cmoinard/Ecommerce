@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Products.Domain.CategoryAggregate;
 using Shared.Core;
 
-namespace Products.ApplicationServices.CategoryUseCases
+namespace Products.ApplicationServices.Categories
 {
     public interface ICategoriesRepository
     {

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Products.ApplicationServices.CategoryUseCases
+namespace Products.ApplicationServices.Categories
 {
     public interface IUnitOfWork
     {

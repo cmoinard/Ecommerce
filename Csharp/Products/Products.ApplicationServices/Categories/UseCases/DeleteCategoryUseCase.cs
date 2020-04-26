@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Products.Domain.CategoryAggregate;
 using Shared.Core.Exceptions;
 
-namespace Products.ApplicationServices.CategoryUseCases.UseCases
+namespace Products.ApplicationServices.Categories.UseCases
 {
     public class DeleteCategoryUseCase
     {

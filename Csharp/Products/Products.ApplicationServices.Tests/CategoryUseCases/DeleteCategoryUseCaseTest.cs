@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using Products.ApplicationServices.CategoryUseCases;
-using Products.ApplicationServices.CategoryUseCases.UseCases;
+using Products.ApplicationServices.Categories;
+using Products.ApplicationServices.Categories.UseCases;
 using Products.Domain.CategoryAggregate;
-using Shared.Core;
 using Shared.Core.Exceptions;
+using Shared.Core.Extensions;
 using Xunit;
 
 namespace Products.ApplicationServices.Tests.CategoryUseCases
@@ -31,7 +31,7 @@ namespace Products.ApplicationServices.Tests.CategoryUseCases
         [Fact]
         public async Task ShouldDelete_WhenCategoryExists()
         {
-            var category = new Category(_id, new NonEmptyString("Keyboards"));
+            var category = new Category(_id, "Keyboards".ToNonEmpty());
             var repository = RepositoryReturning(category);
             var unitOfWork = Substitute.For<IUnitOfWork>();
             var useCase = new DeleteCategoryUseCase(repository, unitOfWork);

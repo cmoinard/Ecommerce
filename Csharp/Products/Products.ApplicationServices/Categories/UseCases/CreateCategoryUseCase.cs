@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
 using Products.Domain.CategoryAggregate;
 using Shared.Core;
+using Shared.Core.Exceptions;
+using Shared.Core.Extensions;
 using Shared.Core.Validations;
 
-namespace Products.ApplicationServices.CategoryUseCases.UseCases
+namespace Products.ApplicationServices.Categories.UseCases
 {
     public class CreateCategoryUseCase
     {
@@ -30,11 +32,21 @@ namespace Products.ApplicationServices.CategoryUseCases.UseCases
 
         private async Task<NonEmptyString> GetValidatedNameAsync(UnvalidatedCategoryState categoryState)
         {
-            var name = new NonEmptyString(categoryState.Name);
+            var name = categoryState.Name.ToNonEmpty();
             var nameAlreadyExists = await _repository.NameExistsAsync(name);
             if (nameAlreadyExists)
                 throw new CategoryNameAlreadyExistsException(name);
             return name;
         }
+    }
+
+    public class CategoryNameAlreadyExistsException : DomainException
+    {
+        public CategoryNameAlreadyExistsException(NonEmptyString name)
+        {
+            Name = name;
+        }
+
+        public NonEmptyString Name { get; }
     }
 }

@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using Products.ApplicationServices.CategoryUseCases;
-using Products.ApplicationServices.CategoryUseCases.UseCases;
+using Products.ApplicationServices.Categories;
+using Products.ApplicationServices.Categories.UseCases;
 using Products.Domain.CategoryAggregate;
 using Shared.Core;
 using Shared.Core.Exceptions;
+using Shared.Core.Extensions;
 using Shared.Core.Validations;
 using Xunit;
 
@@ -43,7 +44,8 @@ namespace Products.ApplicationServices.Tests.CategoryUseCases
             Check
                 .ThatAsyncCode(() => 
                     useCase.CreateAsync(new UnvalidatedCategoryState("Keyboards")))
-                .Throws<CategoryNameAlreadyExistsException>();
+                .Throws<CategoryNameAlreadyExistsException>()
+                .WithProperty(e => e.Name, "Keyboards".ToNonEmpty());
         }
         
         [Fact]

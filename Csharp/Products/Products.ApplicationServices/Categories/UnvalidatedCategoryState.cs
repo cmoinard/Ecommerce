@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
 
-namespace Products.ApplicationServices.CategoryUseCases
+namespace Products.ApplicationServices.Categories
 {
     public class UnvalidatedCategoryState : IValidatable
     {
