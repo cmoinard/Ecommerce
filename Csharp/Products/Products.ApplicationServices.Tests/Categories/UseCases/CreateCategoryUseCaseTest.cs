@@ -10,7 +10,7 @@ using Shared.Core.Extensions;
 using Shared.Core.Validations;
 using Xunit;
 
-namespace Products.ApplicationServices.Tests.CategoryUseCases
+namespace Products.ApplicationServices.Tests.Categories.UseCases
 {
     public class CreateCategoryUseCaseTest
     {

@@ -8,7 +8,7 @@ using Shared.Core.Exceptions;
 using Shared.Core.Extensions;
 using Xunit;
 
-namespace Products.ApplicationServices.Tests.CategoryUseCases
+namespace Products.ApplicationServices.Tests.Categories.UseCases
 {
     public class DeleteCategoryUseCaseTest
     {
