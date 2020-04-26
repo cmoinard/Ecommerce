@@ -19,8 +19,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Core.csproj" />
-      <ProjectReference Include="..\Products.ApplicationServices\Products.ApplicationServices.csproj" />
-      <ProjectReference Include="..\Products.Domain\Products.Domain.csproj" />
+      <ProjectReference Include="..\..\Shared\Shared.Testing\Shared.Testing.csproj" />
+      <ProjectReference Include="..\ProductCatalog.ApplicationServices\ProductCatalog.ApplicationServices.csproj" />
+      <ProjectReference Include="..\ProductCatalog.Domain\ProductCatalog.Domain.csproj" />
     </ItemGroup>
 
 </Project>

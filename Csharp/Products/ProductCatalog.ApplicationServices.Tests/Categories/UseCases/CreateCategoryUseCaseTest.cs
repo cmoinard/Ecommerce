@@ -1,16 +1,16 @@
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using Products.ApplicationServices.Categories;
-using Products.ApplicationServices.Categories.UseCases;
-using Products.Domain.CategoryAggregate;
+using ProductCatalog.ApplicationServices.Categories;
+using ProductCatalog.ApplicationServices.Categories.UseCases;
+using ProductCatalog.Domain.CategoryAggregate;
 using Shared.Core;
 using Shared.Core.Exceptions;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
 using Xunit;
 
-namespace Products.ApplicationServices.Tests.Categories.UseCases
+namespace ProductCatalog.ApplicationServices.Tests.Categories.UseCases
 {
     public class CreateCategoryUseCaseTest
     {

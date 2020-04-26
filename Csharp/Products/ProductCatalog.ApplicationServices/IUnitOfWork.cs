@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Products.ApplicationServices.Categories
+namespace ProductCatalog.ApplicationServices
 {
     public interface IUnitOfWork
     {

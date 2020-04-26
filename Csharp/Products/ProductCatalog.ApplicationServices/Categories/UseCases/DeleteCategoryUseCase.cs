@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
-using Products.Domain.CategoryAggregate;
+using ProductCatalog.Domain.CategoryAggregate;
 using Shared.Core.Exceptions;
 
-namespace Products.ApplicationServices.Categories.UseCases
+namespace ProductCatalog.ApplicationServices.Categories.UseCases
 {
     public class DeleteCategoryUseCase
     {
@@ -17,11 +17,11 @@ namespace Products.ApplicationServices.Categories.UseCases
             _unitOfWork = unitOfWork;
         }
         
-        public async Task DeleteAsync(Category.Id id)
+        public async Task DeleteAsync(CategoryId id)
         {
             var category = await _repository.GetByIdAsync(id);
             if (category == null)
-                throw new NotFoundException<Category.Id>(id);
+                throw new NotFoundException<CategoryId>(id);
 
             await _repository.DeleteAsync(category);
             await _unitOfWork.SaveChangesAsync();

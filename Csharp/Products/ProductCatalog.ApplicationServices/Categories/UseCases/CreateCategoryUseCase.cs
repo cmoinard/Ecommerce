@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using Products.Domain.CategoryAggregate;
+using ProductCatalog.Domain.CategoryAggregate;
 using Shared.Core;
 using Shared.Core.Exceptions;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
 
-namespace Products.ApplicationServices.Categories.UseCases
+namespace ProductCatalog.ApplicationServices.Categories.UseCases
 {
     public class CreateCategoryUseCase
     {

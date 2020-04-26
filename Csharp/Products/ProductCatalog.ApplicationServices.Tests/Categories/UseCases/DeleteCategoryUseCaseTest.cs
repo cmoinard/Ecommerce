@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using Products.ApplicationServices.Categories;
-using Products.ApplicationServices.Categories.UseCases;
-using Products.Domain.CategoryAggregate;
-using Shared.Core.Exceptions;
+using ProductCatalog.ApplicationServices.Categories;
+using ProductCatalog.ApplicationServices.Categories.UseCases;
+using ProductCatalog.Domain.CategoryAggregate;
 using Shared.Core.Extensions;
+using Shared.Testing;
 using Xunit;
 
-namespace Products.ApplicationServices.Tests.Categories.UseCases
+namespace ProductCatalog.ApplicationServices.Tests.Categories.UseCases
 {
     public class DeleteCategoryUseCaseTest
     {
-        private readonly Category.Id _id = new Category.Id(1);
+        private readonly CategoryId _id = new CategoryId(1);
 
         [Fact]
         public void ShouldThrowNotFoundException_WhenNoCategoryWithIdToDelete()
@@ -21,11 +21,10 @@ namespace Products.ApplicationServices.Tests.Categories.UseCases
                 new DeleteCategoryUseCase(
                     RepositoryReturning(null),
                     Substitute.For<IUnitOfWork>());
-            
+
             Check
                 .ThatAsyncCode(() => useCase.DeleteAsync(_id))
-                .Throws<NotFoundException<Category.Id>>()
-                .WithProperty(e => e.Id, _id);
+                .ThrowsNotFound(_id);
         }
         
         [Fact]
