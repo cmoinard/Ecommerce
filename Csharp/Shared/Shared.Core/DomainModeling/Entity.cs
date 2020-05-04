@@ -5,17 +5,12 @@ namespace Shared.Core.DomainModeling
     public abstract class Entity<TId>
         where TId : notnull
     {
-        protected Entity()
-            : this(default!)
-        {
-        }
-        
         protected Entity(TId id)
         {
             Id = id;
         }
 
-        public TId Id { get; private set; }
+        public TId Id { get; }
 
         public override bool Equals(object? obj) =>
             obj is Entity<TId> other &&

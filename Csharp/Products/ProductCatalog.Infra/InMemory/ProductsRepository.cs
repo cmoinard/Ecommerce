@@ -37,7 +37,7 @@ namespace ProductCatalog.Infra.InMemory
             return _products.Any(p => p.Name == name && p.Id != exceptProductId);
         }
 
-        public async Task CreateAsync(Product product)
+        public async Task CreateAsync(UncreatedProduct product)
         {
             await Task.CompletedTask;
             

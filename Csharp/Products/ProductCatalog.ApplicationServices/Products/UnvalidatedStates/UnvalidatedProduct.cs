@@ -46,8 +46,8 @@ namespace ProductCatalog.ApplicationServices.Products.UnvalidatedStates
                 yield return new EmptyCategoriesValidationError();
         }
         
-        public Product ToDomain() =>
-            new Product(
+        public UncreatedProduct ToDomain() =>
+            new UncreatedProduct(
                 Name.ToNonEmpty(),
                 Description.ToNonEmpty(),
                 Dimension.ToDomain(),

@@ -26,7 +26,7 @@ namespace ProductCatalog.ApplicationServices.Categories.UseCases
             
             var name = await GetValidatedNameAsync(categoryState);
 
-            await _repository.CreateAsync(new Category(name));
+            await _repository.CreateAsync(new UncreatedCategory(name));
             await _unitOfWork.SaveChangesAsync();
         }
 

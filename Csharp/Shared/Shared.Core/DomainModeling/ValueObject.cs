@@ -11,7 +11,7 @@ namespace Shared.Core.DomainModeling
     {
         private readonly T _value;
 
-        public SimpleValueObject(T value)
+        protected SimpleValueObject(T value)
         {
             _value = value;
         }
@@ -23,8 +23,5 @@ namespace Shared.Core.DomainModeling
 
         public override string ToString() => 
             _value.ToString()!;
-
-        public static explicit operator T(SimpleValueObject<T> valueObject) => 
-            valueObject._value;
     }
 }

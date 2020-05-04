@@ -11,7 +11,7 @@ namespace ProductCatalog.ApplicationServices.Categories
 
         Task<bool> NameExistsAsync(NonEmptyString name);
 
-        Task CreateAsync(Category category);
+        Task CreateAsync(UncreatedCategory category);
         Task DeleteAsync(Category category);
         Task<IReadOnlyCollection<CategoryId>> GetNonExistentIdsAsync(NonEmptyList<CategoryId> ids);
     }

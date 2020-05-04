@@ -3,7 +3,6 @@ using NFluent;
 using NSubstitute;
 using ProductCatalog.ApplicationServices.Categories;
 using ProductCatalog.ApplicationServices.Categories.UseCases;
-using ProductCatalog.Domain.CategoryAggregate;
 using Shared.Core;
 using Shared.Core.Exceptions;
 using Shared.Core.Extensions;
@@ -59,7 +58,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Categories.UseCases
 
             Received.InOrder(async () =>
             {
-                await repository.Received().CreateAsync(Arg.Any<Category>());
+                await repository.Received().CreateAsync(Arg.Any<UncreatedCategory>());
                 await unitOfWork.Received().SaveChangesAsync();
             });
         }

@@ -5,11 +5,6 @@ namespace ProductCatalog.Domain.CategoryAggregate
 {
     public class Category : AggregateRoot<CategoryId>
     {
-        public Category(NonEmptyString name)
-        {
-            Name = name;
-        }
-        
         public Category(CategoryId id, NonEmptyString name)
             : base(id)
         {

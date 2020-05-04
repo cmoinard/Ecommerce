@@ -10,19 +10,6 @@ namespace ProductCatalog.Domain.ProductAggregate
     {
         private NonEmptyList<CategoryId> _categoryIds = default!;
 
-        public Product(
-            NonEmptyString name,
-            NonEmptyString description,
-            Dimension dimension,
-            Weight weight,
-            NonEmptyList<CategoryId> categoryIds)
-        {
-            Name = name;
-            Description = description;
-            Dimension = dimension;
-            Weight = weight;
-            CategoryIds = categoryIds;
-        }
         
         public Product(
             ProductId id,

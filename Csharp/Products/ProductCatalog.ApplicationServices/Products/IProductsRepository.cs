@@ -12,7 +12,7 @@ namespace ProductCatalog.ApplicationServices.Products
         Task<bool> NameExistsAsync(NonEmptyString name);
         Task<bool> NameExistsAsync(NonEmptyString name, ProductId exceptProductId);
 
-        Task CreateAsync(Product product);
+        Task CreateAsync(UncreatedProduct product);
         Task DeleteAsync(Product product);
     }
 }

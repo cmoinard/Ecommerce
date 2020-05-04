@@ -1,7 +1,7 @@
 using ProductCatalog.ApplicationServices;
 using ProductCatalog.ApplicationServices.Categories;
 using ProductCatalog.ApplicationServices.Products;
-using ProductCatalog.Infra.InMemory;
+using ProductCatalog.Infra.Sql;
 using SimpleInjector;
 
 namespace ProductCatalog.Web
@@ -10,9 +10,15 @@ namespace ProductCatalog.Web
     {
         public static void Register(Container container)
         {
-            container.RegisterSingleton<ICategoriesRepository, CategoriesRepository>();
-            container.RegisterSingleton<IProductsRepository, ProductsRepository>();
-            container.RegisterSingleton<IUnitOfWork, UnitOfWork>();
+            // // In memory
+            // container.RegisterSingleton<ICategoriesRepository, CategoriesRepository>();
+            // container.RegisterSingleton<IProductsRepository, ProductsRepository>();
+            // container.RegisterSingleton<IUnitOfWork, UnitOfWork>();
+            
+            // Database
+            container.Register<ICategoriesRepository, DbCategoriesRepository>();
+            container.Register<IProductsRepository, DbProductsRepository>();
+            container.Register<IUnitOfWork, DbUnitOfWork>();
         }
     }
 }

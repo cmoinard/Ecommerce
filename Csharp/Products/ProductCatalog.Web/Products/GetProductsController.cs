@@ -53,7 +53,7 @@ namespace ProductCatalog.Web.Products
                         Width = product.Dimension.Width.ToCm(),
                         Height = product.Dimension.Height.ToCm()
                     };
-                Weight = (int) product.Weight;
+                Weight = product.Weight.ToGrams();
                 CategoryIds =
                     product.CategoryIds
                         .Select(id => (int) id)

@@ -5,7 +5,6 @@ using ProductCatalog.ApplicationServices.Products;
 using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.ApplicationServices.Products.UseCases;
 using ProductCatalog.Domain.CategoryAggregate;
-using ProductCatalog.Domain.ProductAggregate;
 using Shared.Core;
 using Shared.Core.Extensions;
 using Shared.Testing;
@@ -54,7 +53,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases
 
             Received.InOrder(async () =>
             {
-                await repository.Received().CreateAsync(Arg.Any<Product>());
+                await repository.Received().CreateAsync(Arg.Any<UncreatedProduct>());
                 await unitOfWork.Received().SaveChangesAsync();
             });
         }

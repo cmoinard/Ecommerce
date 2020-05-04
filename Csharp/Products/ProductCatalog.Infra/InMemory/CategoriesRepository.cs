@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProductCatalog.ApplicationServices.Categories;
@@ -33,7 +32,7 @@ namespace ProductCatalog.Infra.InMemory
             return _categories.Any(c => c.Name == name);
         }
 
-        public async Task CreateAsync(Category category)
+        public async Task CreateAsync(UncreatedCategory category)
         {
             await Task.CompletedTask;
             
