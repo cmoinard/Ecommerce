@@ -21,7 +21,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     RepositoryThatCantFindProduct(),
                     Substitute.For<IUnitOfWork>());
 
-            var newDimension = new UnvalidatedDimensionState(20, 30, 40);
+            var newDimension = new UnvalidatedDimension(20, 30, 40);
             Check
                 .ThatAsyncCode(() => useCase.ChangeDimensionsAsync(id, newDimension))
                 .ThrowsNotFound(id);
@@ -36,7 +36,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     RepositoryReturning(product),
                     Substitute.For<IUnitOfWork>());
 
-            var newDimension = new UnvalidatedDimensionState(-20, -30, -40);
+            var newDimension = new UnvalidatedDimension(-20, -30, -40);
             Check
                 .ThatAsyncCode(() => useCase.ChangeDimensionsAsync(product.Id, newDimension))
                 .ThrowsValidationException(
@@ -55,7 +55,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     RepositoryReturning(product),
                     unitOfWork);
             
-            var newDimension = new UnvalidatedDimensionState(20, 30, 40);
+            var newDimension = new UnvalidatedDimension(20, 30, 40);
             await useCase.ChangeDimensionsAsync(product.Id, newDimension);
 
             await unitOfWork.Received().SaveChangesAsync();

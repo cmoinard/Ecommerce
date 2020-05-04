@@ -17,8 +17,8 @@ namespace ProductCatalog.Web.Products.Dtos
 
         public IReadOnlyCollection<int> CategoryIds { get; set; }
 
-        public UnvalidatedProductState ToDomain() =>
-            new UnvalidatedProductState(
+        public UnvalidatedProduct ToDomain() =>
+            new UnvalidatedProduct(
                 Name,
                 Description,
                 Dimension.ToDomain(),

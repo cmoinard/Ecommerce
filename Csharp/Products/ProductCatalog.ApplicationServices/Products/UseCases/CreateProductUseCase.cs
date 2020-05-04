@@ -20,7 +20,7 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             _unitOfWork = unitOfWork;
         }
         
-        public async Task CreateAsync(UnvalidatedProductState state)
+        public async Task CreateAsync(UnvalidatedProduct state)
         {
             state.EnsureIsValid();
 

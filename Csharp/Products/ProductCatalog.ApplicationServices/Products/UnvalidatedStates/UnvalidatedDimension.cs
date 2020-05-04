@@ -4,9 +4,9 @@ using Shared.Core.Validations;
 
 namespace ProductCatalog.ApplicationServices.Products.UnvalidatedStates
 {
-    public class UnvalidatedDimensionState  : IValidatable
+    public class UnvalidatedDimension  : IValidatable
     {
-        public UnvalidatedDimensionState(int length, int width, int height)
+        public UnvalidatedDimension(int length, int width, int height)
         {
             Length = length;
             Width = width;

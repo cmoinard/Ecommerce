@@ -49,9 +49,9 @@ namespace ProductCatalog.Web.Products
                 Dimension = 
                     new DimensionDto
                     {
-                        Length = (int)product.Dimension.Length,
-                        Width = (int)product.Dimension.Width,
-                        Height = (int)product.Dimension.Height
+                        Length = product.Dimension.Length.ToCm(),
+                        Width = product.Dimension.Width.ToCm(),
+                        Height = product.Dimension.Height.ToCm()
                     };
                 Weight = (int) product.Weight;
                 CategoryIds =

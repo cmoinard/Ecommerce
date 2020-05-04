@@ -66,11 +66,11 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases
             return repository;
         }
 
-        private static UnvalidatedProductState UnvalidatedProductWithCategories(params CategoryId[] categoryIds) =>
-            new UnvalidatedProductState(
+        private static UnvalidatedProduct UnvalidatedProductWithCategories(params CategoryId[] categoryIds) =>
+            new UnvalidatedProduct(
                 "Typematrix 2030 BÉPO",
                 "Best keyboard of the universe",
-                new UnvalidatedDimensionState(33, 14, 2), 
+                new UnvalidatedDimension(33, 14, 2), 
                 709,
                 categoryIds);
     }

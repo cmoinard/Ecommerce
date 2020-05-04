@@ -6,25 +6,25 @@ using Shared.Core.Validations;
 
 namespace ProductCatalog.ApplicationServices.Products.UnvalidatedStates
 {
-    public class UnvalidatedProductState : IValidatable
+    public class UnvalidatedProduct : IValidatable
     {
-        public UnvalidatedProductState(
+        public UnvalidatedProduct(
             string name,
             string description,
-            UnvalidatedDimensionState dimensionState,
+            UnvalidatedDimension dimension,
             int weightInGrams,
             IReadOnlyCollection<CategoryId> categoryIds)
         {
             Name = name;
             Description = description;
-            DimensionState = dimensionState;
+            Dimension = dimension;
             WeightInGrams = weightInGrams;
             CategoryIds = categoryIds;
         }
 
         public string Name { get; }
         public string Description { get; }
-        public UnvalidatedDimensionState DimensionState { get; }
+        public UnvalidatedDimension Dimension { get; }
         public int WeightInGrams { get; }
         public IReadOnlyCollection<CategoryId> CategoryIds { get; }
 
@@ -36,7 +36,7 @@ namespace ProductCatalog.ApplicationServices.Products.UnvalidatedStates
             if (Description.IsNullOrWhiteSpace())
                 yield return new EmptyProductDescriptionValidationError();
 
-            foreach (var validationError in DimensionState.Validate())
+            foreach (var validationError in Dimension.Validate())
                 yield return validationError;
 
             if (WeightInGrams < 0)
@@ -50,7 +50,7 @@ namespace ProductCatalog.ApplicationServices.Products.UnvalidatedStates
             new Product(
                 Name.ToNonEmpty(),
                 Description.ToNonEmpty(),
-                DimensionState.ToDomain(),
+                Dimension.ToDomain(),
                 Weight.Grams(WeightInGrams),
                 CategoryIds.ToNonEmptyList());
     }

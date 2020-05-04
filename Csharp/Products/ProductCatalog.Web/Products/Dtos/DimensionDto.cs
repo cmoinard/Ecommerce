@@ -8,7 +8,7 @@ namespace ProductCatalog.Web.Products.Dtos
         public int Width { get; set; }
         public int Length { get; set; }
 
-        public UnvalidatedDimensionState ToDomain() => 
-            new UnvalidatedDimensionState(Length, Width, Height);
+        public UnvalidatedDimension ToDomain() => 
+            new UnvalidatedDimension(Length, Width, Height);
     }
 }

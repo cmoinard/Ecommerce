@@ -12,6 +12,8 @@ namespace ProductCatalog.Domain.ProductAggregate
                 throw new ArgumentOutOfRangeException("Size should be strictly positive");
         }
 
+        public int ToCm() => (int) this / 10;
+
         public static Size Cm(int size) => new Size(size * 10);
     }
 }

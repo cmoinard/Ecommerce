@@ -17,13 +17,13 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             _unitOfWork = unitOfWork;
         }
 
-        public async Task ChangeDimensionsAsync(ProductId productId, UnvalidatedDimensionState dimensionState)
+        public async Task ChangeDimensionsAsync(ProductId productId, UnvalidatedDimension dimension)
         {
             var product = await SafeGetProductAsync(productId);
             
-            dimensionState.EnsureIsValid();
+            dimension.EnsureIsValid();
 
-            product.Dimension = dimensionState.ToDomain();
+            product.Dimension = dimension.ToDomain();
 
             await _unitOfWork.SaveChangesAsync();
         }

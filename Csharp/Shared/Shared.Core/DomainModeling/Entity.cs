@@ -15,7 +15,7 @@ namespace Shared.Core.DomainModeling
             Id = id;
         }
 
-        public TId Id { get; }
+        public TId Id { get; private set; }
 
         public override bool Equals(object? obj) =>
             obj is Entity<TId> other &&

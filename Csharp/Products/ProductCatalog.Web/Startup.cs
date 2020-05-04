@@ -34,10 +34,6 @@ namespace ProductCatalog.Web
                 options
                     .AddAspNetCore()
                     .AddControllerActivation();
-
-                options
-                    .AddLocalization()
-                    .AddLogging();
             });
             
             ContainerRegistrations.Register(_container);
