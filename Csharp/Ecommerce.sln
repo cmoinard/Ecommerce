@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Infra", "Pro
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hexagon", "Hexagon", "{7C6A4D96-2E0D-4FFE-A154-53CD3FD4F12A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Domain.Tests", "Products\ProductCatalog.Domain.Tests\ProductCatalog.Domain.Tests.csproj", "{CFAD9087-BCEC-47FA-8455-AA5122A4E590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,7 @@ Global
 		{745698B1-CD07-4F42-86E5-85DD457692F4} = {7C6A4D96-2E0D-4FFE-A154-53CD3FD4F12A}
 		{4C3CAEDC-3912-469F-BFAB-F3E680367189} = {7C6A4D96-2E0D-4FFE-A154-53CD3FD4F12A}
 		{9A9682E1-A690-48E7-A998-0FB5384FA742} = {1B01FD48-653F-468B-A89A-C0DF2272D032}
+		{CFAD9087-BCEC-47FA-8455-AA5122A4E590} = {1B01FD48-653F-468B-A89A-C0DF2272D032}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C0A5294E-7693-4407-811F-C23B50087B3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -63,5 +66,9 @@ Global
 		{35F058C2-C1CD-4EFD-B381-9AC7C5BA7DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F058C2-C1CD-4EFD-B381-9AC7C5BA7DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F058C2-C1CD-4EFD-B381-9AC7C5BA7DF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFAD9087-BCEC-47FA-8455-AA5122A4E590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFAD9087-BCEC-47FA-8455-AA5122A4E590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFAD9087-BCEC-47FA-8455-AA5122A4E590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFAD9087-BCEC-47FA-8455-AA5122A4E590}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

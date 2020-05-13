@@ -9,19 +9,30 @@ namespace Shared.Core.DomainModeling
     public abstract class SimpleValueObject<T> : ValueObject
         where T : notnull
     {
-        private readonly T _value;
-
         protected SimpleValueObject(T value)
         {
-            _value = value;
+            InternalValue = value;
         }
+
+        private protected T InternalValue { get; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return _value;
+            yield return InternalValue;
         }
 
         public override string ToString() => 
-            _value.ToString()!;
+            InternalValue.ToString()!;
+    }
+
+    public abstract class StringBasedValueObject : SimpleValueObject<string>
+    {
+        protected StringBasedValueObject(string internalValue)
+            : base(internalValue)
+        {
+        }
+        
+        public static explicit operator string(StringBasedValueObject valueObject) => 
+            valueObject.InternalValue;
     }
 }

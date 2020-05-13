@@ -38,7 +38,7 @@ namespace ProductCatalog.Infra.Sql
                     .ToList();
         }
 
-        public Task<bool> NameExistsAsync(NonEmptyString name) =>
+        public Task<bool> NameExistsAsync(CategoryName name) =>
             Set.AnyAsync(c => c.Name == (string)name);
 
         public async Task CreateAsync(UncreatedCategory category)

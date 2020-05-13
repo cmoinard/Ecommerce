@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Shared.Core.Extensions;
 
 namespace Shared.Core
 {

@@ -5,7 +5,7 @@ namespace ProductCatalog.Domain.ProductAggregate
 {
     public class ProductId : Id<Guid>
     {
-        public ProductId(Guid value) : base(value)
+        public ProductId(Guid internalValue) : base(internalValue)
         {
         }
     }

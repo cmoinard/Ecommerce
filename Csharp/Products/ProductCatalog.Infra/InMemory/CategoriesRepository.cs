@@ -26,7 +26,7 @@ namespace ProductCatalog.Infra.InMemory
             return _categories;
         }
 
-        public async Task<bool> NameExistsAsync(NonEmptyString name)
+        public async Task<bool> NameExistsAsync(CategoryName name)
         {
             await Task.CompletedTask;
             return _categories.Any(c => c.Name == name);

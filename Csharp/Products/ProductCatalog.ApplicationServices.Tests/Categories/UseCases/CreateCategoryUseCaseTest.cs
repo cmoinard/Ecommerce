@@ -3,58 +3,38 @@ using NFluent;
 using NSubstitute;
 using ProductCatalog.ApplicationServices.Categories;
 using ProductCatalog.ApplicationServices.Categories.UseCases;
-using Shared.Core;
-using Shared.Core.Exceptions;
-using Shared.Core.Extensions;
-using Shared.Core.Validations;
+using ProductCatalog.Domain.CategoryAggregate;
 using Xunit;
 
 namespace ProductCatalog.ApplicationServices.Tests.Categories.UseCases
 {
     public class CreateCategoryUseCaseTest
     {
-        [Theory]
-        [InlineData("")]
-        [InlineData("    ")]
-        public void ShouldThrowValidationException_WhenNameIsEmpty(string name)
-        {
-            var useCase = 
-                new CreateCategoryUseCase(
-                    Substitute.For<ICategoriesRepository>(),
-                    Substitute.For<IUnitOfWork>());
-
-            Check
-                .ThatAsyncCode(() => 
-                    useCase.CreateAsync(new UnvalidatedCategoryState(name)))
-                .Throws<ValidationException>()
-                .WithProperty(
-                    e => e.Errors, 
-                    new NonEmptyList<ValidationError>(new EmptyCategoryNameValidationError()));
-        }
-        
         [Fact]
         public void ShouldThrowDomainException_WhenNameAlreadyExists()
         {
+            var name = new CategoryName("Keyboards");
             var useCase = 
                 new CreateCategoryUseCase(
                     RepositoryWithExistsReturning(true),
                     Substitute.For<IUnitOfWork>());
-            
+
             Check
                 .ThatAsyncCode(() => 
-                    useCase.CreateAsync(new UnvalidatedCategoryState("Keyboards")))
+                    useCase.CreateAsync(new UncreatedCategory(name)))
                 .Throws<CategoryNameAlreadyExistsException>()
-                .WithProperty(e => e.Name, "Keyboards".ToNonEmpty());
+                .WithProperty(e => e.Name, name);
         }
         
         [Fact]
         public async Task ShouldCreate_WhenAllIsValid()
         {
+            var name = new CategoryName("Keyboards");
             var repository = RepositoryWithExistsReturning(false);
             var unitOfWork = Substitute.For<IUnitOfWork>();
             var useCase = new CreateCategoryUseCase(repository, unitOfWork);
 
-            await useCase.CreateAsync(new UnvalidatedCategoryState("Keyboards"));
+            await useCase.CreateAsync(new UncreatedCategory(name));
 
             Received.InOrder(async () =>
             {
@@ -66,7 +46,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Categories.UseCases
         private static ICategoriesRepository RepositoryWithExistsReturning(bool exists)
         {
             var repository = Substitute.For<ICategoriesRepository>();
-            repository.NameExistsAsync(Arg.Any<NonEmptyString>()).Returns(exists);
+            repository.NameExistsAsync(Arg.Any<CategoryName>()).Returns(exists);
             return repository;
         }
     }

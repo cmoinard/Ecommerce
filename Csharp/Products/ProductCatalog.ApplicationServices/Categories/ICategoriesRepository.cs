@@ -9,7 +9,7 @@ namespace ProductCatalog.ApplicationServices.Categories
     {
         Task<IReadOnlyCollection<Category>> GetAsync();
 
-        Task<bool> NameExistsAsync(NonEmptyString name);
+        Task<bool> NameExistsAsync(CategoryName name);
 
         Task CreateAsync(UncreatedCategory category);
         Task DeleteAsync(Category category);

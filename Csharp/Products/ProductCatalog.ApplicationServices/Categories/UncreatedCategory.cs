@@ -1,14 +1,14 @@
-using Shared.Core;
+using ProductCatalog.Domain.CategoryAggregate;
 
 namespace ProductCatalog.ApplicationServices.Categories
 {
     public class UncreatedCategory
     {
-        public UncreatedCategory(NonEmptyString name)
+        public UncreatedCategory(CategoryName name)
         {
             Name = name;
         }
 
-        public NonEmptyString Name { get; }
+        public CategoryName Name { get; }
     }
 }

@@ -1,7 +1,5 @@
 using ProductCatalog.ApplicationServices.Categories;
-using ProductCatalog.ApplicationServices.Categories.UseCases;
 using ProductCatalog.Domain.CategoryAggregate;
-using Shared.Core;
 
 namespace ProductCatalog.Infra.Sql.Models
 {
@@ -11,7 +9,7 @@ namespace ProductCatalog.Infra.Sql.Models
         public string Name { get; set; }
 
         public Category ToDomain() =>
-            new Category(new CategoryId(Id), new NonEmptyString(Name));
+            new Category(new CategoryId(Id), new CategoryName(Name));
 
         public static DbCategory FromDomain(UncreatedCategory category) =>
             new DbCategory

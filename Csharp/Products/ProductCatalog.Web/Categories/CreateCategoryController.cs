@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.ApplicationServices.Categories;
 using ProductCatalog.ApplicationServices.Categories.UseCases;
+using ProductCatalog.Domain.CategoryAggregate;
+using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Categories
 {
@@ -19,8 +21,9 @@ namespace ProductCatalog.Web.Categories
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] CategoryDto dto)
         {
-            await _useCase.CreateAsync(
-                new UnvalidatedCategoryState(dto.Name));
+            var category = dto.Validate();
+            
+            await _useCase.CreateAsync(category.Value);
 
             return Ok();
         }
@@ -28,6 +31,16 @@ namespace ProductCatalog.Web.Categories
         public class CategoryDto
         {
             public string Name { get; set; }
+            
+            public Validation<UncreatedCategory> Validate()
+            {
+                var name = CategoryName.TryCreate(Name);
+
+                return
+                    name.IsValid
+                        ? Validation.Valid(new UncreatedCategory(name.Value))
+                        : Validation.Invalid<UncreatedCategory>(name.Errors);
+            }
         }
     }
 }

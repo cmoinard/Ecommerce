@@ -4,7 +4,6 @@ using NSubstitute;
 using ProductCatalog.ApplicationServices.Categories;
 using ProductCatalog.ApplicationServices.Categories.UseCases;
 using ProductCatalog.Domain.CategoryAggregate;
-using Shared.Core.Extensions;
 using Shared.Testing;
 using Xunit;
 
@@ -30,7 +29,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Categories.UseCases
         [Fact]
         public async Task ShouldDelete_WhenCategoryExists()
         {
-            var category = new Category(_id, "Keyboards".ToNonEmpty());
+            var category = new Category(_id, new CategoryName("Keyboards"));
             var repository = RepositoryReturning(category);
             var unitOfWork = Substitute.For<IUnitOfWork>();
             var useCase = new DeleteCategoryUseCase(repository, unitOfWork);

@@ -1,9 +1,6 @@
 using System.Threading.Tasks;
 using ProductCatalog.Domain.CategoryAggregate;
-using Shared.Core;
 using Shared.Core.Exceptions;
-using Shared.Core.Extensions;
-using Shared.Core.Validations;
 
 namespace ProductCatalog.ApplicationServices.Categories.UseCases
 {
@@ -20,33 +17,24 @@ namespace ProductCatalog.ApplicationServices.Categories.UseCases
             _unitOfWork = unitOfWork;
         }
 
-        public async Task CreateAsync(UnvalidatedCategoryState categoryState)
+        public async Task CreateAsync(UncreatedCategory category)
         {
-            categoryState.EnsureIsValid();
-            
-            var name = await GetValidatedNameAsync(categoryState);
-
-            await _repository.CreateAsync(new UncreatedCategory(name));
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        private async Task<NonEmptyString> GetValidatedNameAsync(UnvalidatedCategoryState categoryState)
-        {
-            var name = categoryState.Name.ToNonEmpty();
-            var nameAlreadyExists = await _repository.NameExistsAsync(name);
+            var nameAlreadyExists = await _repository.NameExistsAsync(category.Name);
             if (nameAlreadyExists)
-                throw new CategoryNameAlreadyExistsException(name);
-            return name;
+                throw new CategoryNameAlreadyExistsException(category.Name);
+
+            await _repository.CreateAsync(category);
+            await _unitOfWork.SaveChangesAsync();
         }
     }
 
     public class CategoryNameAlreadyExistsException : DomainException
     {
-        public CategoryNameAlreadyExistsException(NonEmptyString name)
+        public CategoryNameAlreadyExistsException(CategoryName name)
         {
             Name = name;
         }
 
-        public NonEmptyString Name { get; }
+        public CategoryName Name { get; }
     }
 }
