@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="Category.fs" />
+        <Compile Include="Product.fs" />
+        <Compile Include="UseCases\CategoryUseCases.fs" />
+        <Compile Include="UseCases\ProductUseCase.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Utils\Utils\Utils.fsproj" />
+    </ItemGroup>
+
+</Project>
