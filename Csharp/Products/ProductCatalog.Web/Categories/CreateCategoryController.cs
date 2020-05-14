@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.ApplicationServices.Categories;
-using ProductCatalog.ApplicationServices.Categories.UseCases;
-using ProductCatalog.Domain.CategoryAggregate;
+using ProductCatalog.Domain.Categories;
+using ProductCatalog.Domain.Categories.Aggregate;
+using ProductCatalog.Domain.Categories.UseCases;
 using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Categories

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using ProductCatalog.Domain.ProductAggregate;
+using ProductCatalog.Domain.Products.Aggregate;
 using Shared.Core;
 using Shared.Core.Validations;
 

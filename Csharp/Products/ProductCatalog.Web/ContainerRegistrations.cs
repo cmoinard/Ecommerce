@@ -1,6 +1,7 @@
-using ProductCatalog.ApplicationServices;
-using ProductCatalog.ApplicationServices.Categories;
-using ProductCatalog.ApplicationServices.Products;
+using ProductCatalog.Domain;
+using ProductCatalog.Domain.Categories.Ports;
+using ProductCatalog.Domain.Products.Ports;
+using ProductCatalog.Infra.InMemory;
 using ProductCatalog.Infra.Sql;
 using SimpleInjector;
 
@@ -13,12 +14,12 @@ namespace ProductCatalog.Web
             // // In memory
             // container.RegisterSingleton<ICategoriesRepository, CategoriesRepository>();
             // container.RegisterSingleton<IProductsRepository, ProductsRepository>();
-            // container.RegisterSingleton<IUnitOfWork, UnitOfWork>();
+            // container.RegisterSingleton<IProductCatalogUnitOfWork, InMemoryProductCatalogUnitOfWork>();
             
             // Database
             container.Register<ICategoriesRepository, DbCategoriesRepository>();
             container.Register<IProductsRepository, DbProductsRepository>();
-            container.Register<IUnitOfWork, DbUnitOfWork>();
+            container.Register<IProductCatalogUnitOfWork, DbProductCatalogUnitOfWork>();
         }
     }
 }

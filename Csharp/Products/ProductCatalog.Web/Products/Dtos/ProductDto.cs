@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using ProductCatalog.ApplicationServices.Products;
-using ProductCatalog.Domain.CategoryAggregate;
-using ProductCatalog.Domain.ProductAggregate;
+using ProductCatalog.Domain.Categories.Aggregate;
+using ProductCatalog.Domain.Products;
+using ProductCatalog.Domain.Products.Aggregate;
 using Shared.Core;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
@@ -26,7 +26,7 @@ namespace ProductCatalog.Web.Products.Dtos
             var name = ProductName.TryCreate(Name);
             var description = ProductDescription.TryCreate(Description);
             var dimension = Dimension.Validate();
-            var weight = Domain.ProductAggregate.Weight.TryGrams(Weight);
+            var weight = Domain.Products.Aggregate.Weight.TryGrams(Weight);
             var categories = ValidateCategories(CategoryIds);
 
             var errors =

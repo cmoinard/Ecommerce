@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.ApplicationServices.Products.UseCases;
-using ProductCatalog.Domain.ProductAggregate;
+using ProductCatalog.Domain.Products.UseCases;
+using ProductCatalog.Domain.Products.Aggregate;
 using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Products

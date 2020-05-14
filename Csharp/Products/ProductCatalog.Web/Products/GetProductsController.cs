@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.ApplicationServices.Products.UseCases;
-using ProductCatalog.Domain.ProductAggregate;
+using ProductCatalog.Domain.Products.UseCases;
+using ProductCatalog.Domain.Products.Aggregate;
 using ProductCatalog.Web.Products.Dtos;
 
 namespace ProductCatalog.Web.Products

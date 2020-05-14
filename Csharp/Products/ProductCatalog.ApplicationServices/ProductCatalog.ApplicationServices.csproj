@@ -10,4 +10,9 @@
       <ProjectReference Include="..\ProductCatalog.Domain\ProductCatalog.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Categories" />
+      <Folder Include="Products" />
+    </ItemGroup>
+
 </Project>

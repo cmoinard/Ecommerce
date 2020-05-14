@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices.Categories;
-using ProductCatalog.Domain.CategoryAggregate;
+using ProductCatalog.Domain.Categories;
+using ProductCatalog.Domain.Categories.Aggregate;
+using ProductCatalog.Domain.Categories.Ports;
 using ProductCatalog.Infra.InMemory.IdGenerators;
 using Shared.Core;
 using Shared.Core.Extensions;

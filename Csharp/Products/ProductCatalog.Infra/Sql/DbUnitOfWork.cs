@@ -1,13 +1,13 @@
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices;
+using ProductCatalog.Domain;
 
 namespace ProductCatalog.Infra.Sql
 {
-    public class DbUnitOfWork : IUnitOfWork
+    public class DbProductCatalogUnitOfWork : IProductCatalogUnitOfWork
     {
         private readonly ProductCatalogContext _context;
 
-        public DbUnitOfWork(ProductCatalogContext context)
+        public DbProductCatalogUnitOfWork(ProductCatalogContext context)
         {
             _context = context;
         }

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProductCatalog.ApplicationServices.Products;
-using ProductCatalog.Domain.CategoryAggregate;
-using ProductCatalog.Domain.ProductAggregate;
+using ProductCatalog.Domain.Categories.Aggregate;
+using ProductCatalog.Domain.Products;
+using ProductCatalog.Domain.Products.Aggregate;
 using Shared.Core.Extensions;
 
 namespace ProductCatalog.Infra.Sql.Models
@@ -28,7 +28,7 @@ namespace ProductCatalog.Infra.Sql.Models
                     Size.Cm(Length),
                     Size.Cm(Width),
                     Size.Cm(Height)),
-                Domain.ProductAggregate.Weight.Grams(Weight),
+                Domain.Products.Aggregate.Weight.Grams(Weight),
                 Categories
                     .Select(c => new CategoryId(c.CategoryId))
                     .ToNonEmptyList()

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices.Products;
-using ProductCatalog.Domain.ProductAggregate;
+using ProductCatalog.Domain.Products;
+using ProductCatalog.Domain.Products.Aggregate;
+using ProductCatalog.Domain.Products.Ports;
 using ProductCatalog.Infra.InMemory.IdGenerators;
-using Shared.Core;
 
 namespace ProductCatalog.Infra.InMemory
 {

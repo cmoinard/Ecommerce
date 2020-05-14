@@ -7,7 +7,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Core\Shared.Core.csproj" />
-      <ProjectReference Include="..\ProductCatalog.ApplicationServices\ProductCatalog.ApplicationServices.csproj" />
       <ProjectReference Include="..\ProductCatalog.Domain\ProductCatalog.Domain.csproj" />
     </ItemGroup>
 

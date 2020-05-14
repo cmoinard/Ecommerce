@@ -1,12 +1,12 @@
-using ProductCatalog.ApplicationServices.Categories;
-using ProductCatalog.Domain.CategoryAggregate;
+using ProductCatalog.Domain.Categories;
+using ProductCatalog.Domain.Categories.Aggregate;
 
 namespace ProductCatalog.Infra.Sql.Models
 {
     public class DbCategory
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
 
         public Category ToDomain() =>
             new Category(new CategoryId(Id), new CategoryName(Name));
