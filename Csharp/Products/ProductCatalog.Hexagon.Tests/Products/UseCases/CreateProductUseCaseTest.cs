@@ -4,7 +4,7 @@ using NSubstitute;
 using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Products;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Core;
 using Xunit;
@@ -19,7 +19,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases
             var product = UncreatedProduct();
             var useCase = new CreateProductUseCase(
                 RepositoryWithNameExistsReturning(true),
-                Substitute.For<IProductCatalogUnitOfWork>());
+                Substitute.For<ICreateProduct>());
 
             Check
                 .ThatAsyncCode(() => useCase.CreateAsync(product))
@@ -31,16 +31,12 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases
         public async Task ShouldCreate_WhenAllIsValid()
         {
             var repository = RepositoryWithNameExistsReturning(false);
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
-            var useCase = new CreateProductUseCase(repository, unitOfWork);
+            var createProduct = Substitute.For<ICreateProduct>();
+            var useCase = new CreateProductUseCase(repository, createProduct);
 
             await useCase.CreateAsync(UncreatedProduct());
 
-            Received.InOrder(async () =>
-            {
-                await repository.Received().CreateAsync(Arg.Any<UncreatedProduct>());
-                await unitOfWork.Received().SaveChangesAsync();
-            });
+            await createProduct.Received().CreateAsync(Arg.Any<UncreatedProduct>());
         }
 
         private static IProductsRepository RepositoryWithNameExistsReturning(bool exists)

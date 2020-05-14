@@ -3,7 +3,7 @@ using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Categories;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
 using Xunit;
 
@@ -18,7 +18,7 @@ namespace ProductCatalog.Hexagon.Tests.Categories.UseCases
             var useCase = 
                 new CreateCategoryUseCase(
                     RepositoryWithExistsReturning(true),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<ICreateCategory>());
 
             Check
                 .ThatAsyncCode(() => 
@@ -32,16 +32,12 @@ namespace ProductCatalog.Hexagon.Tests.Categories.UseCases
         {
             var name = new CategoryName("Keyboards");
             var repository = RepositoryWithExistsReturning(false);
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
-            var useCase = new CreateCategoryUseCase(repository, unitOfWork);
+            var createProduct = Substitute.For<ICreateCategory>();
+            var useCase = new CreateCategoryUseCase(repository, createProduct);
 
             await useCase.CreateAsync(new UncreatedCategory(name));
 
-            Received.InOrder(async () =>
-            {
-                await repository.Received().CreateAsync(Arg.Any<UncreatedCategory>());
-                await unitOfWork.Received().SaveChangesAsync();
-            });
+            await createProduct.Received().CreateAsync(Arg.Any<UncreatedCategory>());
         }
 
         private static ICategoriesRepository RepositoryWithExistsReturning(bool exists)

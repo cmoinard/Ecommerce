@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
 using Shared.Testing;
 using Xunit;
@@ -19,7 +19,7 @@ namespace ProductCatalog.Hexagon.Tests.Categories.UseCases
             var useCase = 
                 new DeleteCategoryUseCase(
                     RepositoryReturning(null),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<IDeleteCategory>());
 
             Check
                 .ThatAsyncCode(() => useCase.DeleteAsync(_id))
@@ -31,16 +31,12 @@ namespace ProductCatalog.Hexagon.Tests.Categories.UseCases
         {
             var category = new Category(_id, new CategoryName("Keyboards"));
             var repository = RepositoryReturning(category);
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
+            var unitOfWork = Substitute.For<IDeleteCategory>();
             var useCase = new DeleteCategoryUseCase(repository, unitOfWork);
 
             await useCase.DeleteAsync(_id);
             
-            Received.InOrder(async () =>
-            {
-                await repository.DeleteAsync(category);
-                await unitOfWork.SaveChangesAsync();
-            });
+            await unitOfWork.Received().DeleteAsync(category);
         }
 
         private ICategoriesRepository RepositoryReturning(Category? category)

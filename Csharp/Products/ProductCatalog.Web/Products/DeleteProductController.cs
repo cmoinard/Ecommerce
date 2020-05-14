@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Hexagon.Products.UseCases;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
 
 namespace ProductCatalog.Web.Products
 {
@@ -10,9 +10,9 @@ namespace ProductCatalog.Web.Products
     [Route(Routes.Products)]
     public class DeleteProductController : ControllerBase
     {
-        private readonly DeleteProductUseCase _useCase;
+        private readonly IDeleteProductUseCase _useCase;
 
-        public DeleteProductController(DeleteProductUseCase useCase)
+        public DeleteProductController(IDeleteProductUseCase useCase)
         {
             _useCase = useCase;
         }

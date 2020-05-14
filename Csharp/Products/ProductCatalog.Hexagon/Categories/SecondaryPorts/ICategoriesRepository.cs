@@ -3,16 +3,14 @@ using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Categories.Aggregate;
 using Shared.Core;
 
-namespace ProductCatalog.Hexagon.Categories.Ports
+namespace ProductCatalog.Hexagon.Categories.SecondaryPorts
 {
-    public interface ICategoriesRepository : ICategoryRepository
+    public interface ICategoriesRepository
     {
-        Task<IReadOnlyCollection<Category>> GetAsync();
+        Task<Category?> GetByIdAsync(CategoryId id);
 
         Task<bool> NameExistsAsync(CategoryName name);
-
-        Task CreateAsync(UncreatedCategory category);
-        Task DeleteAsync(Category category);
+        Task<IReadOnlyCollection<Category>> GetAsync();
         Task<IReadOnlyCollection<CategoryId>> GetNonExistentIdsAsync(NonEmptyList<CategoryId> ids);
     }
 }

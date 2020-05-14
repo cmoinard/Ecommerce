@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Hexagon.Products.UseCases;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Products
@@ -11,9 +11,9 @@ namespace ProductCatalog.Web.Products
     [Route(Routes.Products)]
     public class ChangeWeightController : ControllerBase
     {
-        private readonly ChangeWeightUseCase _useCase;
+        private readonly IChangeWeightUseCase _useCase;
 
-        public ChangeWeightController(ChangeWeightUseCase useCase)
+        public ChangeWeightController(IChangeWeightUseCase useCase)
         {
             _useCase = useCase;
         }

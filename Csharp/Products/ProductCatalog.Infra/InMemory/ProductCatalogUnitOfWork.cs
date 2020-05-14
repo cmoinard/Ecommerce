@@ -1,10 +1,12 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon;
+using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 
 namespace ProductCatalog.Infra.InMemory
 {
-    public class InMemoryProductCatalogUnitOfWork : IProductCatalogUnitOfWork
+    public class InMemorySaveProduct : ISaveProduct
     {
-        public Task SaveChangesAsync() => Task.CompletedTask;
+        public Task SaveAsync(Product product) => Task.CompletedTask;
     }
 }

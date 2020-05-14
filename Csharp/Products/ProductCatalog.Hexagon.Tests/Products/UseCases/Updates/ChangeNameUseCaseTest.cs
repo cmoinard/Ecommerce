@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Testing;
 using Xunit;
@@ -21,7 +21,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
             var useCase = 
                 new ChangeNameUseCase(
                     RepositoryThatCantFindProduct(),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<ISaveProduct>());
 
             Check
                 .ThatAsyncCode(() => useCase.ChangeNameAsync(id, NewName))
@@ -35,7 +35,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
             var useCase = 
                 new ChangeNameUseCase(
                     RepositoryNameExistsReturning(true, product),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<ISaveProduct>());
 
             Check
                 .ThatAsyncCode(() => useCase.ChangeNameAsync(product.Id, NewName))
@@ -47,7 +47,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
         public async Task ShouldChangeName_WhenAllIsValid()
         {
             var product = ProductSamples.TypeMatrix();
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
+            var unitOfWork = Substitute.For<ISaveProduct>();
             var useCase = 
                 new ChangeNameUseCase(
                     RepositoryNameExistsReturning(false, product),
@@ -55,7 +55,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
             
             await useCase.ChangeNameAsync(product.Id, NewName);
 
-            await unitOfWork.Received().SaveChangesAsync();
+            await unitOfWork.Received().SaveAsync(product);
             Check.That(product.Name).Equals(NewName);
         }
 

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Testing;
 using Xunit;
@@ -20,7 +21,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
             var useCase = 
                 new ChangeWeightUseCase(
                     RepositoryThatCantFindProduct(),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<ISaveProduct>());
 
             Check
                 .ThatAsyncCode(() => useCase.ChangeWeightAsync(id, NewWeight))
@@ -32,7 +33,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
         {
             var weight = NewWeight;
             var product = ProductSamples.TypeMatrix();
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
+            var unitOfWork = Substitute.For<ISaveProduct>();
             var useCase = 
                 new ChangeWeightUseCase(
                     RepositoryReturning(product),
@@ -40,7 +41,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
             
             await useCase.ChangeWeightAsync(product.Id, weight);
 
-            await unitOfWork.Received().SaveChangesAsync();
+            await unitOfWork.Received().SaveAsync(product);
             Check.That(product.Weight).Equals(NewWeight);
         }
     }

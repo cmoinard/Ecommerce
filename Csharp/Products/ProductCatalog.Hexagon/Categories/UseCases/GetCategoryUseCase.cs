@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Categories.PrimaryPorts;
+using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using Shared.Core.Exceptions;
 
 namespace ProductCatalog.Hexagon.Categories.UseCases
 {
-    public class GetCategoryUseCase
+    public class GetCategoryUseCase : IGetCategoryUseCase
     {
         private readonly ICategoriesRepository _repository;
 

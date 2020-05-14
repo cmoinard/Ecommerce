@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.Hexagon.Categories;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.UseCases;
+using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Categories
@@ -11,9 +11,9 @@ namespace ProductCatalog.Web.Categories
     [Route(Routes.Categories)]
     public class CreateCategoryController : ControllerBase
     {
-        private readonly CreateCategoryUseCase _useCase;
+        private readonly ICreateCategoryUseCase _useCase;
 
-        public CreateCategoryController(CreateCategoryUseCase useCase)
+        public CreateCategoryController(ICreateCategoryUseCase useCase)
         {
             _useCase = useCase;
         }

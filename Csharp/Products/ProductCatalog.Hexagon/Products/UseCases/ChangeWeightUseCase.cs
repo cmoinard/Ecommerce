@@ -1,19 +1,20 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {
-    public class ChangeWeightUseCase : ProductUseCaseBase
+    public class ChangeWeightUseCase : ProductUseCaseBase, IChangeWeightUseCase
     {
-        private readonly IProductCatalogUnitOfWork _productCatalogUnitOfWork;
+        private readonly ISaveProduct _saveProduct;
 
         public ChangeWeightUseCase(
             IProductsRepository repository,
-            IProductCatalogUnitOfWork productCatalogUnitOfWork)
+            ISaveProduct saveProduct)
             : base(repository)
         {
-            _productCatalogUnitOfWork = productCatalogUnitOfWork;
+            _saveProduct = saveProduct;
         }
 
         public async Task ChangeWeightAsync(ProductId productId, Weight weight)
@@ -22,7 +23,7 @@ namespace ProductCatalog.Hexagon.Products.UseCases
 
             product.Weight = weight;
 
-            await _productCatalogUnitOfWork.SaveChangesAsync();
+            await _saveProduct.SaveAsync(product);
         }
     }
 }

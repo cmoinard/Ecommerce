@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Hexagon.Products.UseCases;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Web.Products.Dtos;
 
 namespace ProductCatalog.Web.Products
@@ -11,9 +11,9 @@ namespace ProductCatalog.Web.Products
     [Route(Routes.Products)]
     public class ChangeDimensionController : ControllerBase
     {
-        private readonly ChangeDimensionUseCase _useCase;
+        private readonly IChangeDimensionUseCase _useCase;
 
-        public ChangeDimensionController(ChangeDimensionUseCase useCase)
+        public ChangeDimensionController(IChangeDimensionUseCase useCase)
         {
             _useCase = useCase;
         }

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Testing;
 using Xunit;
@@ -18,7 +19,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases
             var useCase = 
                 new DeleteProductUseCase(
                     RepositoryThatCantFindProduct(),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<IDeleteProduct>());
 
             Check
                 .ThatAsyncCode(() => useCase.DeleteAsync(id))
@@ -30,16 +31,12 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases
         {
             var product = ProductSamples.TypeMatrix();
             var repository = RepositoryReturning(product);
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
-            var useCase = new DeleteProductUseCase(repository, unitOfWork);
+            var deleteProduct = Substitute.For<IDeleteProduct>();
+            var useCase = new DeleteProductUseCase(repository, deleteProduct);
             
             await useCase.DeleteAsync(product.Id);
             
-            Received.InOrder(async () =>
-            {
-                await repository.Received().DeleteAsync(product);
-                await unitOfWork.Received().SaveChangesAsync();
-            });
+            await deleteProduct.Received().DeleteAsync(product);
         }
     }
 }

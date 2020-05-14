@@ -1,19 +1,20 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {
-    public class ChangeDimensionUseCase : ProductUseCaseBase
+    public class ChangeDimensionUseCase : ProductUseCaseBase, IChangeDimensionUseCase
     {
-        private readonly IProductCatalogUnitOfWork _productCatalogUnitOfWork;
+        private readonly ISaveProduct _saveProduct;
 
         public ChangeDimensionUseCase(
             IProductsRepository repository,
-            IProductCatalogUnitOfWork productCatalogUnitOfWork)
+            ISaveProduct saveProduct)
             : base(repository)
         {
-            _productCatalogUnitOfWork = productCatalogUnitOfWork;
+            _saveProduct = saveProduct;
         }
 
         public async Task ChangeDimensionsAsync(ProductId productId, Dimension dimension)
@@ -22,7 +23,7 @@ namespace ProductCatalog.Hexagon.Products.UseCases
 
             product.Dimension = dimension;
 
-            await _productCatalogUnitOfWork.SaveChangesAsync();
+            await _saveProduct.SaveAsync(product);
         }
     }
 }

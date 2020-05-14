@@ -3,8 +3,9 @@ using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Core;
 using Shared.Testing;
@@ -22,7 +23,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
                 new ChangeCategoriesUseCase(
                     RepositoryThatCantFindProduct(),
                     CategoriesRepositoryWithNonExistentCategories(),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<ISaveProduct>());
 
             Check
                 .ThatAsyncCode(() => useCase.ChangeCategoriesAsync(id, new NonEmptyList<CategoryId>(new CategoryId(2))))
@@ -38,7 +39,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
                 new ChangeCategoriesUseCase(
                     RepositoryReturning(product),
                     CategoriesRepositoryWithNonExistentCategories(nonexistentId),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<ISaveProduct>());
 
             Check
                 .ThatAsyncCode(() => 
@@ -51,7 +52,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
         public async Task ShouldChangeCategories_WhenAllIsValid()
         {
             var product = ProductSamples.TypeMatrix();
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
+            var unitOfWork = Substitute.For<ISaveProduct>();
             var useCase = 
                 new ChangeCategoriesUseCase(
                     RepositoryReturning(product),
@@ -63,7 +64,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
                 product.Id,
                 newCategories);
 
-            await unitOfWork.Received().SaveChangesAsync();
+            await unitOfWork.Received().SaveAsync(product);
             Check.That(product.CategoryIds).Equals(newCategories);
         }
 

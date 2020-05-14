@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Hexagon.Products.UseCases;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Web.Products.Dtos;
 
 namespace ProductCatalog.Web.Products
@@ -9,9 +9,9 @@ namespace ProductCatalog.Web.Products
     [Route(Routes.Products)]
     public class CreateProductController : ControllerBase
     {
-        private readonly CreateProductUseCase _useCase;
+        private readonly ICreateProductUseCase _useCase;
 
-        public CreateProductController(CreateProductUseCase useCase)
+        public CreateProductController(ICreateProductUseCase useCase)
         {
             _useCase = useCase;
         }

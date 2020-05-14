@@ -1,19 +1,20 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {
-    public class ChangeNameUseCase : ProductUseCaseBase
+    public class ChangeNameUseCase : ProductUseCaseBase, IChangeNameUseCase
     {
-        private readonly IProductCatalogUnitOfWork _productCatalogUnitOfWork;
+        private readonly ISaveProduct _saveProduct;
 
         public ChangeNameUseCase(
             IProductsRepository repository,
-            IProductCatalogUnitOfWork productCatalogUnitOfWork)
+            ISaveProduct saveProduct)
             : base(repository)
         {
-            _productCatalogUnitOfWork = productCatalogUnitOfWork;
+            _saveProduct = saveProduct;
         }
         
         public async Task ChangeNameAsync(ProductId productId, ProductName name)
@@ -26,7 +27,7 @@ namespace ProductCatalog.Hexagon.Products.UseCases
 
             product.Name = name;
 
-            await _productCatalogUnitOfWork.SaveChangesAsync();
+            await _saveProduct.SaveAsync(product);
         }
     }
 }

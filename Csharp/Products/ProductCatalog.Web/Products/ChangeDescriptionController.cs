@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Hexagon.Products.UseCases;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Products
@@ -11,9 +11,9 @@ namespace ProductCatalog.Web.Products
     [Route(Routes.Products)]
     public class ChangeDescriptionController : ControllerBase
     {
-        private readonly ChangeDescriptionUseCase _useCase;
+        private readonly IChangeDescriptionUseCase _useCase;
 
-        public ChangeDescriptionController(ChangeDescriptionUseCase useCase)
+        public ChangeDescriptionController(IChangeDescriptionUseCase useCase)
         {
             _useCase = useCase;
         }

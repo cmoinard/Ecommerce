@@ -1,18 +1,20 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon;
+using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 
 namespace ProductCatalog.Infra.Sql
 {
-    public class DbProductCatalogUnitOfWork : IProductCatalogUnitOfWork
+    public class DbSaveProduct : ISaveProduct
     {
         private readonly ProductCatalogContext _context;
 
-        public DbProductCatalogUnitOfWork(ProductCatalogContext context)
+        public DbSaveProduct(ProductCatalogContext context)
         {
             _context = context;
         }
         
-        public Task SaveChangesAsync() => 
+        public Task SaveAsync(Product product) => 
             _context.SaveChangesAsync();
     }
 }

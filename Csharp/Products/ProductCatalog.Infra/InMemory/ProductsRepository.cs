@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Infra.InMemory.IdGenerators;
 
 namespace ProductCatalog.Infra.InMemory

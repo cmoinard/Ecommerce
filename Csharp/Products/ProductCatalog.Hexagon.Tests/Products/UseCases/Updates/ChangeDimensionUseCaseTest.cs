@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Testing;
 using Xunit;
@@ -24,7 +25,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
             var useCase = 
                 new ChangeDimensionUseCase(
                     RepositoryThatCantFindProduct(),
-                    Substitute.For<IProductCatalogUnitOfWork>());
+                    Substitute.For<ISaveProduct>());
 
             Check
                 .ThatAsyncCode(() => useCase.ChangeDimensionsAsync(id, NewDimension))
@@ -35,7 +36,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
         public async Task ShouldChangeDimension_WhenAllIsValid()
         {
             var product = ProductSamples.TypeMatrix();
-            var unitOfWork = Substitute.For<IProductCatalogUnitOfWork>();
+            var unitOfWork = Substitute.For<ISaveProduct>();
             var useCase = 
                 new ChangeDimensionUseCase(
                     RepositoryReturning(product),
@@ -43,7 +44,7 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
             
             await useCase.ChangeDimensionsAsync(product.Id, NewDimension);
 
-            await unitOfWork.Received().SaveChangesAsync();
+            await unitOfWork.Received().SaveAsync(product);
             Check.That(product.Dimension)
                 .Equals(
                     new Dimension(

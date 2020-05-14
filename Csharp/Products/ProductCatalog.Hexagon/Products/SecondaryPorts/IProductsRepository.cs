@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products.Aggregate;
 
-namespace ProductCatalog.Hexagon.Products.Ports
+namespace ProductCatalog.Hexagon.Products.SecondaryPorts
 {
     public interface IProductsRepository
     {
@@ -10,8 +10,5 @@ namespace ProductCatalog.Hexagon.Products.Ports
         Task<Product?> GetByIdAsync(ProductId productId);
         Task<bool> NameExistsAsync(ProductName name);
         Task<bool> NameExistsAsync(ProductName name, ProductId exceptProductId);
-
-        Task CreateAsync(UncreatedProduct product);
-        Task DeleteAsync(Product product);
     }
 }

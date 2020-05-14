@@ -1,7 +1,7 @@
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 
 namespace ProductCatalog.Hexagon.Tests.Products.UseCases
 {

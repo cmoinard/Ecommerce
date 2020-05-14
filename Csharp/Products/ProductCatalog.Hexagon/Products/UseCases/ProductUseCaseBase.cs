@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using Shared.Core.Exceptions;
 
 namespace ProductCatalog.Hexagon.Products.UseCases

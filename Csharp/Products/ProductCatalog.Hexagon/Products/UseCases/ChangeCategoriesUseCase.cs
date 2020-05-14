@@ -1,27 +1,28 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using Shared.Core;
 using Shared.Core.Exceptions;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {
-    public class ChangeCategoriesUseCase : ProductUseCaseBase
+    public class ChangeCategoriesUseCase : ProductUseCaseBase, IChangeCategoriesUseCase
     {
         private readonly ICategoriesRepository _categoriesRepository;
-        private readonly IProductCatalogUnitOfWork _productCatalogUnitOfWork;
+        private readonly ISaveProduct _saveProduct;
 
         public ChangeCategoriesUseCase(
             IProductsRepository repository,
             ICategoriesRepository categoriesRepository,
-            IProductCatalogUnitOfWork productCatalogUnitOfWork)
+            ISaveProduct saveProduct)
             : base(repository)
         {
             _categoriesRepository = categoriesRepository;
-            _productCatalogUnitOfWork = productCatalogUnitOfWork;
+            _saveProduct = saveProduct;
         }
 
         public async Task ChangeCategoriesAsync(ProductId productId, NonEmptyList<CategoryId> categoryIds)
@@ -34,7 +35,7 @@ namespace ProductCatalog.Hexagon.Products.UseCases
 
             product.CategoryIds = categoryIds;
 
-            await _productCatalogUnitOfWork.SaveChangesAsync();
+            await _saveProduct.SaveAsync(product);
         }
     }
     

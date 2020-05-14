@@ -1,21 +1,22 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Categories.PrimaryPorts;
+using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using Shared.Core.Exceptions;
 
 namespace ProductCatalog.Hexagon.Categories.UseCases
 {
-    public class DeleteCategoryUseCase
+    public class DeleteCategoryUseCase : IDeleteCategoryUseCase
     {
         private readonly ICategoriesRepository _repository;
-        private readonly IProductCatalogUnitOfWork _productCatalogUnitOfWork;
+        private readonly IDeleteCategory _deleteCategory;
 
         public DeleteCategoryUseCase(
             ICategoriesRepository repository,
-            IProductCatalogUnitOfWork productCatalogUnitOfWork)
+            IDeleteCategory deleteCategory)
         {
             _repository = repository;
-            _productCatalogUnitOfWork = productCatalogUnitOfWork;
+            _deleteCategory = deleteCategory;
         }
         
         public async Task DeleteAsync(CategoryId id)
@@ -24,8 +25,7 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
             if (category == null)
                 throw new NotFoundException<CategoryId>(id);
 
-            await _repository.DeleteAsync(category);
-            await _productCatalogUnitOfWork.SaveChangesAsync();
+            await _deleteCategory.DeleteAsync(category);
         }
     }
 }

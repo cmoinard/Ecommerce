@@ -2,7 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.UseCases;
+using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 
 namespace ProductCatalog.Web.Categories
 {
@@ -10,9 +10,9 @@ namespace ProductCatalog.Web.Categories
     [Route(Routes.Categories)]
     public class GetCategoriesController : ControllerBase
     {
-        private readonly GetCategoryUseCase _useCase;
+        private readonly IGetCategoryUseCase _useCase;
 
-        public GetCategoriesController(GetCategoryUseCase useCase)
+        public GetCategoriesController(IGetCategoryUseCase useCase)
         {
             _useCase = useCase;
         }

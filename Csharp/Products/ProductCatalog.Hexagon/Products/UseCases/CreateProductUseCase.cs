@@ -1,31 +1,31 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products.Aggregate;
-using ProductCatalog.Hexagon.Products.Ports;
+using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using Shared.Core.Exceptions;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {
-    public class CreateProductUseCase
+    public class CreateProductUseCase : ICreateProductUseCase
     {
         private readonly IProductsRepository _repository;
-        private readonly IProductCatalogUnitOfWork _productCatalogUnitOfWork;
+        private readonly ICreateProduct _createProduct;
 
         public CreateProductUseCase(
             IProductsRepository repository,
-            IProductCatalogUnitOfWork productCatalogUnitOfWork)
+            ICreateProduct createProduct)
         {
             _repository = repository;
-            _productCatalogUnitOfWork = productCatalogUnitOfWork;
+            _createProduct = createProduct;
         }
         
-        public async Task CreateAsync(UncreatedProduct product)
+        public async Task<Product> CreateAsync(UncreatedProduct product)
         {
             var nameAlreadyExists = await _repository.NameExistsAsync(product.Name);
             if (nameAlreadyExists)
                 throw new ProductNameAlreadyExistsException(product.Name);
 
-            await _repository.CreateAsync(product);
-            await _productCatalogUnitOfWork.SaveChangesAsync();
+            return await _createProduct.CreateAsync(product);
         }
     }
 

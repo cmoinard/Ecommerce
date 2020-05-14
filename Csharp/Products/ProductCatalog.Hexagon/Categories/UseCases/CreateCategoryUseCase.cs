@@ -1,31 +1,31 @@
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Categories.Aggregate;
-using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Categories.PrimaryPorts;
+using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using Shared.Core.Exceptions;
 
 namespace ProductCatalog.Hexagon.Categories.UseCases
 {
-    public class CreateCategoryUseCase
+    public class CreateCategoryUseCase : ICreateCategoryUseCase
     {
         private readonly ICategoriesRepository _repository;
-        private readonly IProductCatalogUnitOfWork _productCatalogUnitOfWork;
+        private readonly ICreateCategory _productCatalogUnitOfWork;
 
         public CreateCategoryUseCase(
             ICategoriesRepository repository,
-            IProductCatalogUnitOfWork productCatalogUnitOfWork)
+            ICreateCategory productCatalogUnitOfWork)
         {
             _repository = repository;
             _productCatalogUnitOfWork = productCatalogUnitOfWork;
         }
 
-        public async Task CreateAsync(UncreatedCategory category)
+        public async Task<Category> CreateAsync(UncreatedCategory category)
         {
             var nameAlreadyExists = await _repository.NameExistsAsync(category.Name);
             if (nameAlreadyExists)
                 throw new CategoryNameAlreadyExistsException(category.Name);
 
-            await _repository.CreateAsync(category);
-            await _productCatalogUnitOfWork.SaveChangesAsync();
+            return await _productCatalogUnitOfWork.CreateAsync(category);
         }
     }
 
