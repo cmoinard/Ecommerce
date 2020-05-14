@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Infra.Sql.Models;
+using Shared.Domain;
 
 namespace ProductCatalog.Infra.Sql.Products
 {

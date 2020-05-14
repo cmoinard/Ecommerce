@@ -6,6 +6,7 @@ using ProductCatalog.Hexagon.Products.Aggregate;
 using Shared.Core;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products.Dtos
 {

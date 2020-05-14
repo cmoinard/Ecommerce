@@ -5,6 +5,7 @@ using ProductCatalog.Hexagon.Products.UseCases;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using Shared.Core.Validations;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products
 {

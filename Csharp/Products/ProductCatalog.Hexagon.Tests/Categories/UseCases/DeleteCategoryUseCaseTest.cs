@@ -4,6 +4,7 @@ using NSubstitute;
 using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
+using Shared.Domain;
 using Shared.Testing;
 using Xunit;
 

@@ -5,6 +5,7 @@ using ProductCatalog.Hexagon.Products;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Infra.InMemory.IdGenerators;
+using Shared.Domain;
 
 namespace ProductCatalog.Infra.InMemory
 {

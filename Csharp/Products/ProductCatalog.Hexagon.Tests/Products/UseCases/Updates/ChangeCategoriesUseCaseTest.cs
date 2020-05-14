@@ -8,6 +8,7 @@ using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Core;
+using Shared.Domain;
 using Shared.Testing;
 using Xunit;
 

@@ -8,6 +8,7 @@ using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Web.Products.Dtos;
 using Shared.Core;
 using Shared.Core.Validations;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products
 {

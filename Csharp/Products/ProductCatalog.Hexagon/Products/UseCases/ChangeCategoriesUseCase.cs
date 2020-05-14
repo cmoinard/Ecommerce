@@ -7,6 +7,7 @@ using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using Shared.Core;
 using Shared.Core.Exceptions;
+using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {

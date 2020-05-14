@@ -14,7 +14,7 @@ namespace Shared.Core.DomainModeling
             InternalValue = value;
         }
 
-        private protected T InternalValue { get; }
+        protected T InternalValue { get; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
