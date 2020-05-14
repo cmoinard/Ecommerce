@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Domain.Products.UseCases;
-using ProductCatalog.Domain.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.UseCases;
+using ProductCatalog.Hexagon.Products.Aggregate;
 using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Products
@@ -32,7 +32,7 @@ namespace ProductCatalog.Web.Products
             public int Weight { get; set; }
 
             public Validation<Weight> Validate() =>
-                Domain.Products.Aggregate.Weight.TryGrams(Weight);
+                Hexagon.Products.Aggregate.Weight.TryGrams(Weight);
         }
     }
 }

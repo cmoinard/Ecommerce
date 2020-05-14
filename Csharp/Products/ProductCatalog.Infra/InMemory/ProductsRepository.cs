@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ProductCatalog.Domain.Products;
-using ProductCatalog.Domain.Products.Aggregate;
-using ProductCatalog.Domain.Products.Ports;
+using ProductCatalog.Hexagon.Products;
+using ProductCatalog.Hexagon.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.Ports;
 using ProductCatalog.Infra.InMemory.IdGenerators;
 
 namespace ProductCatalog.Infra.InMemory

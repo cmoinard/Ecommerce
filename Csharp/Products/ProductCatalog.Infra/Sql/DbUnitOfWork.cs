@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using ProductCatalog.Domain;
+using ProductCatalog.Hexagon;
 
 namespace ProductCatalog.Infra.Sql
 {

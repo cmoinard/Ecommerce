@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Domain.Products.UseCases;
+using ProductCatalog.Hexagon.Products.UseCases;
 using ProductCatalog.Web.Products.Dtos;
 
 namespace ProductCatalog.Web.Products

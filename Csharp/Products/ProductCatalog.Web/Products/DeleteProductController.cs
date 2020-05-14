@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Domain.Products.UseCases;
-using ProductCatalog.Domain.Products.Aggregate;
+using ProductCatalog.Hexagon.Products.UseCases;
+using ProductCatalog.Hexagon.Products.Aggregate;
 
 namespace ProductCatalog.Web.Products
 {

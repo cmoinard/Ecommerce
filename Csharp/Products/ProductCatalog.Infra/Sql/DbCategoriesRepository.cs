@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProductCatalog.Domain.Categories;
-using ProductCatalog.Domain.Categories.Aggregate;
-using ProductCatalog.Domain.Categories.Ports;
+using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
+using ProductCatalog.Hexagon.Categories.Ports;
 using ProductCatalog.Infra.Sql.Models;
 using Shared.Core;
 

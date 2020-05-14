@@ -1,5 +1,5 @@
-using ProductCatalog.Domain.Categories;
-using ProductCatalog.Domain.Categories.Aggregate;
+using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 
 namespace ProductCatalog.Infra.Sql.Models
 {

@@ -5,7 +5,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{410B9F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Core", "Shared\Shared.Core\Shared.Core.csproj", "{C0A5294E-7693-4407-811F-C23B50087B3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Domain", "Products\ProductCatalog.Domain\ProductCatalog.Domain.csproj", "{4C3CAEDC-3912-469F-BFAB-F3E680367189}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Hexagon", "Products\ProductCatalog.Hexagon\ProductCatalog.Hexagon.csproj", "{4C3CAEDC-3912-469F-BFAB-F3E680367189}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Testing", "Shared\Shared.Testing\Shared.Testing.csproj", "{A876B513-094C-4A9F-A7F5-F5E868222D43}"
 EndProject
@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Web", "Produ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Infra", "Products\ProductCatalog.Infra\ProductCatalog.Infra.csproj", "{35F058C2-C1CD-4EFD-B381-9AC7C5BA7DF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Domain.Tests", "Products\ProductCatalog.Domain.Tests\ProductCatalog.Domain.Tests.csproj", "{CFAD9087-BCEC-47FA-8455-AA5122A4E590}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductCatalog.Hexagon.Tests", "Products\ProductCatalog.Hexagon.Tests\ProductCatalog.Hexagon.Tests.csproj", "{CFAD9087-BCEC-47FA-8455-AA5122A4E590}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

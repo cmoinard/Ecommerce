@@ -1,6 +1,6 @@
-using ProductCatalog.Domain;
-using ProductCatalog.Domain.Categories.Ports;
-using ProductCatalog.Domain.Products.Ports;
+using ProductCatalog.Hexagon;
+using ProductCatalog.Hexagon.Categories.Ports;
+using ProductCatalog.Hexagon.Products.Ports;
 using ProductCatalog.Infra.InMemory;
 using ProductCatalog.Infra.Sql;
 using SimpleInjector;
