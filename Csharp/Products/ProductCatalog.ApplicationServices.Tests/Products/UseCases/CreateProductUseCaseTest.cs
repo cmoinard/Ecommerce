@@ -2,12 +2,10 @@ using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.ApplicationServices.Products;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.ApplicationServices.Products.UseCases;
 using ProductCatalog.Domain.CategoryAggregate;
+using ProductCatalog.Domain.ProductAggregate;
 using Shared.Core;
-using Shared.Core.Extensions;
-using Shared.Testing;
 using Xunit;
 
 namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases
@@ -15,30 +13,17 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases
     public class CreateProductUseCaseTest
     {
         [Fact]
-        public void ShouldThrowValidationException_WhenStateIsInvalid()
-        {
-            var state = UnvalidatedProductWithCategories();
-            var useCase = new CreateProductUseCase(
-                RepositoryWithNameExistsReturning(false),
-                Substitute.For<IUnitOfWork>());
-
-            Check
-                .ThatAsyncCode(() => useCase.CreateAsync(state))
-                .ThrowsValidationException(new EmptyCategoriesValidationError());
-        }
-        
-        [Fact]
         public void ShouldThrowException_WhenNameAlreadyExists()
         {
-            var state = UnvalidatedProductWithCategories(new CategoryId(1));
+            var product = UncreatedProduct();
             var useCase = new CreateProductUseCase(
                 RepositoryWithNameExistsReturning(true),
                 Substitute.For<IUnitOfWork>());
 
             Check
-                .ThatAsyncCode(() => useCase.CreateAsync(state))
+                .ThatAsyncCode(() => useCase.CreateAsync(product))
                 .Throws<ProductNameAlreadyExistsException>()
-                .WithProperty(e => e.Name, state.Name.ToNonEmpty());
+                .WithProperty(e => e.Name, product.Name);
         }
      
         [Fact]
@@ -48,8 +33,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases
             var unitOfWork = Substitute.For<IUnitOfWork>();
             var useCase = new CreateProductUseCase(repository, unitOfWork);
 
-            await useCase.CreateAsync(
-                UnvalidatedProductWithCategories(new CategoryId(1)));
+            await useCase.CreateAsync(UncreatedProduct());
 
             Received.InOrder(async () =>
             {
@@ -61,16 +45,19 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases
         private static IProductsRepository RepositoryWithNameExistsReturning(bool exists)
         {
             var repository = Substitute.For<IProductsRepository>();
-            repository.NameExistsAsync(Arg.Any<NonEmptyString>()).Returns(exists);
+            repository.NameExistsAsync(Arg.Any<ProductName>()).Returns(exists);
             return repository;
         }
 
-        private static UnvalidatedProduct UnvalidatedProductWithCategories(params CategoryId[] categoryIds) =>
-            new UnvalidatedProduct(
-                "Typematrix 2030 BÉPO",
-                "Best keyboard of the universe",
-                new UnvalidatedDimension(33, 14, 2), 
-                709,
-                categoryIds);
+        private static UncreatedProduct UncreatedProduct() =>
+            new UncreatedProduct(
+                new ProductName("Typematrix 2030 BÉPO"),
+                new ProductDescription("Best keyboard of the universe"),
+                new Dimension(
+                    Size.Cm(33), 
+                    Size.Cm(14),
+                    Size.Cm(2)), 
+                Weight.Grams(709), 
+                new NonEmptyList<CategoryId>(new CategoryId(1)));
     }
 }

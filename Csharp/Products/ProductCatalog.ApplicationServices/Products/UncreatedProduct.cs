@@ -7,8 +7,8 @@ namespace ProductCatalog.ApplicationServices.Products
     public class UncreatedProduct
     {
         public UncreatedProduct(
-            NonEmptyString name,
-            NonEmptyString description,
+            ProductName name,
+            ProductDescription description,
             Dimension dimension,
             Weight weight,
             NonEmptyList<CategoryId> categoryIds)
@@ -20,8 +20,8 @@ namespace ProductCatalog.ApplicationServices.Products
             CategoryIds = categoryIds;
         }
 
-        public NonEmptyString Name { get; }
-        public NonEmptyString Description { get; }
+        public ProductName Name { get; }
+        public ProductDescription Description { get; }
         public Dimension Dimension { get; }
         public Weight Weight { get; }
         public NonEmptyList<CategoryId> CategoryIds { get; }

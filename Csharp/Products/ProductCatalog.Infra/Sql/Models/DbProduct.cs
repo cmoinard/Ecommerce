@@ -4,7 +4,6 @@ using System.Linq;
 using ProductCatalog.ApplicationServices.Products;
 using ProductCatalog.Domain.CategoryAggregate;
 using ProductCatalog.Domain.ProductAggregate;
-using Shared.Core;
 using Shared.Core.Extensions;
 
 namespace ProductCatalog.Infra.Sql.Models
@@ -23,8 +22,8 @@ namespace ProductCatalog.Infra.Sql.Models
         public Product ToDomain() =>
             new Product(
                 new ProductId(Id),
-                new NonEmptyString(Name),
-                new NonEmptyString(Description),
+                new ProductName(Name),
+                new ProductDescription(Description), 
                 new Dimension(
                     Size.Cm(Length),
                     Size.Cm(Width),

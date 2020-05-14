@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.ApplicationServices.Products.UseCases;
 using ProductCatalog.Domain.ProductAggregate;
+using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Products
 {
@@ -20,13 +21,18 @@ namespace ProductCatalog.Web.Products
         [HttpPatch("{id}/description")]
         public async Task<IActionResult> ChangeDescriptionAsync(Guid id, [FromBody]Dto dto)
         {
-            await _useCase.ChangeDescriptionAsync(new ProductId(id), dto.Description);
+            var description = dto.Validate();
+            
+            await _useCase.ChangeDescriptionAsync(new ProductId(id), description.Value);
             return Ok();
         }
 
         public class Dto
         {
             public string Description { get; set; }
+
+            public Validation<ProductDescription> Validate() =>
+                ProductDescription.TryCreate(Description);
         }
     }
 }

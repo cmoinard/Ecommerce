@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
+using ProductCatalog.ApplicationServices.Products;
 using ProductCatalog.Domain.CategoryAggregate;
+using ProductCatalog.Domain.ProductAggregate;
+using Shared.Core;
+using Shared.Core.Extensions;
+using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Products.Dtos
 {
@@ -17,14 +21,45 @@ namespace ProductCatalog.Web.Products.Dtos
 
         public IReadOnlyCollection<int> CategoryIds { get; set; }
 
-        public UnvalidatedProduct ToDomain() =>
-            new UnvalidatedProduct(
-                Name,
-                Description,
-                Dimension.ToDomain(),
-                Weight,
-                CategoryIds
+        public Validation<UncreatedProduct> Validate()
+        {
+            var name = ProductName.TryCreate(Name);
+            var description = ProductDescription.TryCreate(Description);
+            var dimension = Dimension.Validate();
+            var weight = Domain.ProductAggregate.Weight.TryGrams(Weight);
+            var categories = ValidateCategories(CategoryIds);
+
+            var errors =
+                name.SafeGetErrors()
+                    .Concat(description.SafeGetErrors())
+                    .Concat(dimension.SafeGetErrors())
+                    .Concat(weight.SafeGetErrors())
+                    .Concat(categories.SafeGetErrors())
+                    .ToList();
+
+            return errors.ToValidation(() => 
+                new UncreatedProduct(
+                    name.Value,
+                    description.Value,
+                    dimension.Value,
+                    weight.Value,
+                    categories.Value));
+        }
+        
+        public static Validation<NonEmptyList<CategoryId>> ValidateCategories(IReadOnlyCollection<int> categoryIds)
+        {
+            var typedCategoryIds =
+                categoryIds
                     .Select(id => new CategoryId(id))
-                    .ToList());
+                    .ToList();
+
+            return
+                typedCategoryIds.Any()
+                    ? Validation.Valid(typedCategoryIds.ToNonEmptyList())
+                    : Validation.Invalid<NonEmptyList<CategoryId>>(
+                        new EmptyCategoriesValidationError());
+        }
+            
+        public class EmptyCategoriesValidationError : SimpleValidationError {}
     }
 }

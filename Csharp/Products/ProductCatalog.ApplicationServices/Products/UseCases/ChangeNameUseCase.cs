@@ -1,8 +1,5 @@
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.Domain.ProductAggregate;
-using Shared.Core.Exceptions;
-using Shared.Core.Extensions;
 
 namespace ProductCatalog.ApplicationServices.Products.UseCases
 {
@@ -18,19 +15,15 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             _unitOfWork = unitOfWork;
         }
         
-        public async Task ChangeNameAsync(ProductId productId, string newName)
+        public async Task ChangeNameAsync(ProductId productId, ProductName name)
         {
             var product = await SafeGetProductAsync(productId);
             
-            if (newName.IsNullOrWhiteSpace())
-                throw new ValidationException(new EmptyProductNameValidationError());
-
-            var validatedName = newName.ToNonEmpty();
-            var nameAlreadyExists = await Repository.NameExistsAsync(validatedName, productId);
+            var nameAlreadyExists = await Repository.NameExistsAsync(name, productId);
             if (nameAlreadyExists)
-                throw new ProductNameAlreadyExistsException(validatedName);
+                throw new ProductNameAlreadyExistsException(name);
 
-            product.Name = validatedName;
+            product.Name = name;
 
             await _unitOfWork.SaveChangesAsync();
         }

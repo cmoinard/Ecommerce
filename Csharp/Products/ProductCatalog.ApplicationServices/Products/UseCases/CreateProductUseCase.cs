@@ -1,9 +1,6 @@
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
-using Shared.Core;
+using ProductCatalog.Domain.ProductAggregate;
 using Shared.Core.Exceptions;
-using Shared.Core.Extensions;
-using Shared.Core.Validations;
 
 namespace ProductCatalog.ApplicationServices.Products.UseCases
 {
@@ -20,16 +17,11 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             _unitOfWork = unitOfWork;
         }
         
-        public async Task CreateAsync(UnvalidatedProduct state)
+        public async Task CreateAsync(UncreatedProduct product)
         {
-            state.EnsureIsValid();
-
-            var name = state.Name.ToNonEmpty();
-            var nameAlreadyExists = await _repository.NameExistsAsync(name);
+            var nameAlreadyExists = await _repository.NameExistsAsync(product.Name);
             if (nameAlreadyExists)
-                throw new ProductNameAlreadyExistsException(name);
-
-            var product = state.ToDomain();
+                throw new ProductNameAlreadyExistsException(product.Name);
 
             await _repository.CreateAsync(product);
             await _unitOfWork.SaveChangesAsync();
@@ -38,11 +30,11 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
 
     public class ProductNameAlreadyExistsException : DomainException
     {
-        public ProductNameAlreadyExistsException(NonEmptyString name)
+        public ProductNameAlreadyExistsException(ProductName name)
         {
             Name = name;
         }
 
-        public NonEmptyString Name { get; }
+        public ProductName Name { get; }
     }
 }

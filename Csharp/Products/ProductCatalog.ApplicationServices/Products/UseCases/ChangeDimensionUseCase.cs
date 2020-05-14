@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.Domain.ProductAggregate;
-using Shared.Core.Validations;
 
 namespace ProductCatalog.ApplicationServices.Products.UseCases
 {
@@ -17,13 +15,11 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             _unitOfWork = unitOfWork;
         }
 
-        public async Task ChangeDimensionsAsync(ProductId productId, UnvalidatedDimension dimension)
+        public async Task ChangeDimensionsAsync(ProductId productId, Dimension dimension)
         {
             var product = await SafeGetProductAsync(productId);
-            
-            dimension.EnsureIsValid();
 
-            product.Dimension = dimension.ToDomain();
+            product.Dimension = dimension;
 
             await _unitOfWork.SaveChangesAsync();
         }

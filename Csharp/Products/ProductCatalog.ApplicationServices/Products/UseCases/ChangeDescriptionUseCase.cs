@@ -1,8 +1,5 @@
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.Domain.ProductAggregate;
-using Shared.Core.Exceptions;
-using Shared.Core.Extensions;
 
 namespace ProductCatalog.ApplicationServices.Products.UseCases
 {
@@ -18,14 +15,11 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             _unitOfWork = unitOfWork;
         }
         
-        public async Task ChangeDescriptionAsync(ProductId productId, string newDescription)
+        public async Task ChangeDescriptionAsync(ProductId productId, ProductDescription description)
         {
             var product = await SafeGetProductAsync(productId);
 
-            if (newDescription.IsNullOrWhiteSpace())
-                throw new ValidationException(new EmptyProductDescriptionValidationError());
-
-            product.Description = newDescription.ToNonEmpty();
+            product.Description = description;
 
             await _unitOfWork.SaveChangesAsync();
         }

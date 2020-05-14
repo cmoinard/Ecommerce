@@ -2,10 +2,8 @@ using System;
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.ApplicationServices.Products.UseCases;
 using ProductCatalog.Domain.ProductAggregate;
-using Shared.Core.Extensions;
 using Shared.Testing;
 using Xunit;
 
@@ -13,7 +11,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
 {
     public class ChangeDescriptionUseCaseTest : TestBase
     {
-        private const string NewDescription = "Best keyboard of the world";
+        private static readonly ProductDescription NewDescription = new ProductDescription("Best keyboard of the world");
         
         [Fact]
         public void ShouldThrowNotFound_WhenNoProduct()
@@ -29,22 +27,6 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                 .ThrowsNotFound(id);
         }
         
-        [Theory]
-        [InlineData("")]
-        [InlineData("    ")]
-        public void ShouldThrowValidationException_WhenNameIsEmpty(string newDescription)
-        {
-            var product = ProductSamples.TypeMatrix();
-            var useCase = 
-                new ChangeDescriptionUseCase(
-                    RepositoryReturning(product),
-                    Substitute.For<IUnitOfWork>());
-
-            Check
-                .ThatAsyncCode(() => useCase.ChangeDescriptionAsync(product.Id, newDescription))
-                .ThrowsValidationException(new EmptyProductDescriptionValidationError());
-        }
-        
         [Fact]
         public async Task ShouldChangeDescription_WhenAllIsValid()
         {
@@ -58,7 +40,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
             await useCase.ChangeDescriptionAsync(product.Id, NewDescription);
 
             await unitOfWork.Received().SaveChangesAsync();
-            Check.That(product.Description).Equals(NewDescription.ToNonEmpty());
+            Check.That(product.Description).Equals(NewDescription);
         }
     }
 }

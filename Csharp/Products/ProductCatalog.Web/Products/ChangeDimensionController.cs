@@ -21,7 +21,9 @@ namespace ProductCatalog.Web.Products
         [HttpPatch("{id}/dimension")]
         public async Task<IActionResult> ChangeDimensionAsync(Guid id, [FromBody]DimensionDto dto)
         {
-            await _useCase.ChangeDimensionsAsync(new ProductId(id), dto.ToDomain());
+            var dimension = dto.Validate();
+            
+            await _useCase.ChangeDimensionsAsync(new ProductId(id), dimension.Value);
             return Ok();
         }
     }

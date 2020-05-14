@@ -1,5 +1,6 @@
-using System;
+using System.Collections.Generic;
 using Shared.Core.DomainModeling;
+using Shared.Core.Validations;
 
 namespace ProductCatalog.Domain.ProductAggregate
 {
@@ -10,8 +11,8 @@ namespace ProductCatalog.Domain.ProductAggregate
         private Weight(int grams)
             : base(grams)
         {
-            if (grams < 1)
-                throw new ArgumentOutOfRangeException("Weight should be strictly positive");
+            ValidateGrams(grams).EnsureIsValid();
+            
             _grams = grams;
         }
 
@@ -19,5 +20,21 @@ namespace ProductCatalog.Domain.ProductAggregate
 
         public static Weight Grams(int grams) => new Weight(grams);
         public static Weight Kg(int kg) => new Weight(kg * 1000);
+
+        public static Validation<Weight> TryGrams(int grams) =>
+            ValidateGrams(grams)
+                .ToValidation(() => Grams(grams));
+
+        private static IReadOnlyCollection<ValidationError> ValidateGrams(int grams)
+        {
+            var errors = new List<ValidationError>();
+            
+            if (grams < 1)
+                errors.Add(new NegativeSizeValidationError());
+            
+            return errors;
+        }
+        
+        public class NegativeSizeValidationError : SimpleValidationError {}
     }
 }

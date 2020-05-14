@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.Domain.ProductAggregate;
-using Shared.Core.Exceptions;
 
 namespace ProductCatalog.ApplicationServices.Products.UseCases
 {
@@ -17,14 +15,11 @@ namespace ProductCatalog.ApplicationServices.Products.UseCases
             _unitOfWork = unitOfWork;
         }
 
-        public async Task ChangeWeightAsync(ProductId productId, int weightInGrams)
+        public async Task ChangeWeightAsync(ProductId productId, Weight weight)
         {
             var product = await SafeGetProductAsync(productId);
-            
-            if (weightInGrams < 0)
-                throw new ValidationException(new NegativeWeightValidationError());
 
-            product.Weight = Weight.Grams(weightInGrams);
+            product.Weight = weight;
 
             await _unitOfWork.SaveChangesAsync();
         }

@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.ApplicationServices.Products.UseCases;
 using ProductCatalog.Domain.ProductAggregate;
 using Shared.Testing;
@@ -12,6 +11,12 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
 {
     public class ChangeDimensionUseCaseTest : TestBase
     {
+        private static readonly Dimension NewDimension = 
+            new Dimension(
+                Size.Cm(20), 
+                Size.Cm(30), 
+                Size.Cm(40));
+        
         [Fact]
         public void ShouldThrowNotFound_WhenNoProduct()
         {
@@ -21,28 +26,9 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     RepositoryThatCantFindProduct(),
                     Substitute.For<IUnitOfWork>());
 
-            var newDimension = new UnvalidatedDimension(20, 30, 40);
             Check
-                .ThatAsyncCode(() => useCase.ChangeDimensionsAsync(id, newDimension))
+                .ThatAsyncCode(() => useCase.ChangeDimensionsAsync(id, NewDimension))
                 .ThrowsNotFound(id);
-        }
-        
-        [Fact]
-        public void ShouldThrowValidationException_WhenDimensionIsInvalid()
-        {
-            var product = ProductSamples.TypeMatrix();
-            var useCase = 
-                new ChangeDimensionUseCase(
-                    RepositoryReturning(product),
-                    Substitute.For<IUnitOfWork>());
-
-            var newDimension = new UnvalidatedDimension(-20, -30, -40);
-            Check
-                .ThatAsyncCode(() => useCase.ChangeDimensionsAsync(product.Id, newDimension))
-                .ThrowsValidationException(
-                    new NegativeLengthValidationError(),
-                    new NegativeWidthValidationError(),
-                    new NegativeHeightValidationError());
         }
      
         [Fact]
@@ -55,8 +41,7 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     RepositoryReturning(product),
                     unitOfWork);
             
-            var newDimension = new UnvalidatedDimension(20, 30, 40);
-            await useCase.ChangeDimensionsAsync(product.Id, newDimension);
+            await useCase.ChangeDimensionsAsync(product.Id, NewDimension);
 
             await unitOfWork.Received().SaveChangesAsync();
             Check.That(product.Dimension)

@@ -25,13 +25,13 @@ namespace ProductCatalog.Infra.InMemory
             return _products.SingleOrDefault(p => p.Id == productId);
         }
 
-        public async Task<bool> NameExistsAsync(NonEmptyString name)
+        public async Task<bool> NameExistsAsync(ProductName name)
         {
             await Task.CompletedTask;
             return _products.Any(p => p.Name == name);
         }
 
-        public async Task<bool> NameExistsAsync(NonEmptyString name, ProductId exceptProductId)
+        public async Task<bool> NameExistsAsync(ProductName name, ProductId exceptProductId)
         {
             await Task.CompletedTask;
             return _products.Any(p => p.Name == name && p.Id != exceptProductId);

@@ -8,6 +8,8 @@ namespace Shared.Core.Validations
 {
     public static class Validation
     {
+        
+        
         public static Validation<T> Valid<T>(T value) =>
             new InternalValid<T>(value);
 
@@ -74,5 +76,10 @@ namespace Shared.Core.Validations
         public bool IsInvalid => !IsValid;
         public abstract T Value { get; }
         public abstract NonEmptyList<ValidationError> Errors { get; }
+
+        public IReadOnlyCollection<ValidationError> SafeGetErrors() =>
+            IsInvalid
+                ? Errors.ToList()
+                : new List<ValidationError>();
     }
 }

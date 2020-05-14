@@ -9,8 +9,8 @@ namespace ProductCatalog.ApplicationServices.Products
     {
         Task<IReadOnlyCollection<Product>> GetAsync();
         Task<Product?> GetByIdAsync(ProductId productId);
-        Task<bool> NameExistsAsync(NonEmptyString name);
-        Task<bool> NameExistsAsync(NonEmptyString name, ProductId exceptProductId);
+        Task<bool> NameExistsAsync(ProductName name);
+        Task<bool> NameExistsAsync(ProductName name, ProductId exceptProductId);
 
         Task CreateAsync(UncreatedProduct product);
         Task DeleteAsync(Product product);

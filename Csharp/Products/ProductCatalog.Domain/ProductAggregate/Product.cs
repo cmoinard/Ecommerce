@@ -9,12 +9,11 @@ namespace ProductCatalog.Domain.ProductAggregate
     public class Product : AggregateRoot<ProductId>
     {
         private NonEmptyList<CategoryId> _categoryIds = default!;
-
         
         public Product(
             ProductId id,
-            NonEmptyString name,
-            NonEmptyString description,
+            ProductName name,
+            ProductDescription description,
             Dimension dimension,
             Weight weight,
             NonEmptyList<CategoryId> categoryIds)
@@ -27,8 +26,8 @@ namespace ProductCatalog.Domain.ProductAggregate
             CategoryIds = categoryIds;
         }
         
-        public NonEmptyString Name { get; set; }
-        public NonEmptyString Description { get; set; }
+        public ProductName Name { get; set; }
+        public ProductDescription Description { get; set; }
         public Dimension Dimension { get; set; }
         public Weight Weight { get; set; }
 
@@ -42,4 +41,6 @@ namespace ProductCatalog.Domain.ProductAggregate
                         .ToNonEmptyList();
         }
     }
+    
+    
 }

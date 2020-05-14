@@ -19,7 +19,9 @@ namespace ProductCatalog.Web.Products
         [HttpPost]
         public async Task<IActionResult> CreateAsync([FromBody] ProductDto dto)
         {
-            await _useCase.CreateAsync(dto.ToDomain());
+            var product = dto.Validate();
+            
+            await _useCase.CreateAsync(product.Value);
             return Ok();
         }
     }

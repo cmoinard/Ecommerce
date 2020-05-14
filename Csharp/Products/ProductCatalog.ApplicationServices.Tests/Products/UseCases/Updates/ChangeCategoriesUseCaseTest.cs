@@ -1,15 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.ApplicationServices.Categories;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.ApplicationServices.Products.UseCases;
 using ProductCatalog.Domain.CategoryAggregate;
 using ProductCatalog.Domain.ProductAggregate;
 using Shared.Core;
-using Shared.Core.Extensions;
 using Shared.Testing;
 using Xunit;
 
@@ -28,23 +25,8 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     Substitute.For<IUnitOfWork>());
 
             Check
-                .ThatAsyncCode(() => useCase.ChangeCategoriesAsync(id, new[] {new CategoryId(2)}))
+                .ThatAsyncCode(() => useCase.ChangeCategoriesAsync(id, new NonEmptyList<CategoryId>(new CategoryId(2))))
                 .ThrowsNotFound(id);
-        }
-        
-        [Fact]
-        public void ShouldThrowValidationException_WhenNoCategories()
-        {
-            var product = ProductSamples.TypeMatrix();
-            var useCase = 
-                new ChangeCategoriesUseCase(
-                    RepositoryReturning(product),
-                    CategoriesRepositoryWithNonExistentCategories(),
-                    Substitute.For<IUnitOfWork>());
-
-            Check
-                .ThatAsyncCode(() => useCase.ChangeCategoriesAsync(product.Id, new List<CategoryId>()))
-                .ThrowsValidationException(new EmptyCategoriesValidationError());
         }
         
         [Fact]
@@ -59,7 +41,8 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     Substitute.For<IUnitOfWork>());
 
             Check
-                .ThatAsyncCode(() => useCase.ChangeCategoriesAsync(product.Id, new[]{ nonexistentId }))
+                .ThatAsyncCode(() => 
+                    useCase.ChangeCategoriesAsync(product.Id, new NonEmptyList<CategoryId>(nonexistentId)))
                 .Throws<NonExistentCategoriesException>()
                 .WithProperty(e => e.Ids, new NonEmptyList<CategoryId>(nonexistentId));
         }
@@ -75,11 +58,13 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     CategoriesRepositoryWithNonExistentCategories(),
                     unitOfWork);
 
-            var newCategories = new[] {new CategoryId(2), new CategoryId(3)};
-            await useCase.ChangeCategoriesAsync(product.Id, newCategories);
+            var newCategories = new NonEmptyList<CategoryId>(new CategoryId(2), new CategoryId(3));
+            await useCase.ChangeCategoriesAsync(
+                product.Id,
+                newCategories);
 
             await unitOfWork.Received().SaveChangesAsync();
-            Check.That(product.CategoryIds).Equals(newCategories.ToNonEmptyList());
+            Check.That(product.CategoryIds).Equals(newCategories);
         }
 
         private ICategoriesRepository CategoriesRepositoryWithNonExistentCategories(

@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using ProductCatalog.ApplicationServices.Products.UnvalidatedStates;
 using ProductCatalog.ApplicationServices.Products.UseCases;
 using ProductCatalog.Domain.ProductAggregate;
 using Shared.Testing;
@@ -12,6 +11,8 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
 {
     public class ChangeWeightUseCaseTest : TestBase
     {
+        private static readonly Weight NewWeight = Weight.Grams(800);
+
         [Fact]
         public void ShouldThrowNotFound_WhenNoProduct()
         {
@@ -22,27 +23,14 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     Substitute.For<IUnitOfWork>());
 
             Check
-                .ThatAsyncCode(() => useCase.ChangeWeightAsync(id, 800))
+                .ThatAsyncCode(() => useCase.ChangeWeightAsync(id, NewWeight))
                 .ThrowsNotFound(id);
-        }
-        
-        [Fact]
-        public void ShouldThrowValidationException_WhenWeightIsNegative()
-        {
-            var product = ProductSamples.TypeMatrix();
-            var useCase = 
-                new ChangeWeightUseCase(
-                    RepositoryReturning(product),
-                    Substitute.For<IUnitOfWork>());
-
-            Check
-                .ThatAsyncCode(() => useCase.ChangeWeightAsync(product.Id, -10))
-                .ThrowsValidationException(new NegativeWeightValidationError());
         }
         
         [Fact]
         public async Task ShouldChangeWeight_WhenAllIsValid()
         {
+            var weight = NewWeight;
             var product = ProductSamples.TypeMatrix();
             var unitOfWork = Substitute.For<IUnitOfWork>();
             var useCase = 
@@ -50,10 +38,10 @@ namespace ProductCatalog.ApplicationServices.Tests.Products.UseCases.Updates
                     RepositoryReturning(product),
                     unitOfWork);
             
-            await useCase.ChangeWeightAsync(product.Id, 800);
+            await useCase.ChangeWeightAsync(product.Id, weight);
 
             await unitOfWork.Received().SaveChangesAsync();
-            Check.That(product.Weight).Equals(Weight.Grams(800));
+            Check.That(product.Weight).Equals(NewWeight);
         }
     }
 }

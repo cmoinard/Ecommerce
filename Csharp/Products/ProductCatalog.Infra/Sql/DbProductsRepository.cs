@@ -37,10 +37,10 @@ namespace ProductCatalog.Infra.Sql
             return dbProduct?.ToDomain();
         }
 
-        public Task<bool> NameExistsAsync(NonEmptyString name) => 
+        public Task<bool> NameExistsAsync(ProductName name) => 
             Set.AnyAsync(p => p.Name == (string)name);
 
-        public Task<bool> NameExistsAsync(NonEmptyString name, ProductId exceptProductId) => 
+        public Task<bool> NameExistsAsync(ProductName name, ProductId exceptProductId) => 
             Set.AnyAsync(p => p.Name == (string)name && p.Id != (Guid)exceptProductId);
 
         public async Task CreateAsync(UncreatedProduct product)

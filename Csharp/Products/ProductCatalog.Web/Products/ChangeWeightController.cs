@@ -1,11 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.ApplicationServices.Products.UseCases;
-using ProductCatalog.Domain.CategoryAggregate;
 using ProductCatalog.Domain.ProductAggregate;
+using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Products
 {
@@ -23,41 +21,18 @@ namespace ProductCatalog.Web.Products
         [HttpPatch("{id}/weight")]
         public async Task<IActionResult> ChangeWeightAsync(Guid id, [FromBody]Dto dto)
         {
-            await _useCase.ChangeWeightAsync(new ProductId(id), dto.Weight);
+            var weight = dto.Validate();
+            
+            await _useCase.ChangeWeightAsync(new ProductId(id), weight.Value);
             return Ok();
         }
 
         public class Dto
         {
             public int Weight { get; set; }
-        }
-    }
-    
-    [ApiController]
-    [Route(Routes.Products)]
-    public class ChangeCategoriesController : ControllerBase
-    {
-        private readonly ChangeCategoriesUseCase _useCase;
 
-        public ChangeCategoriesController(ChangeCategoriesUseCase useCase)
-        {
-            _useCase = useCase;
-        }
-
-        [HttpPatch("{id}/categories")]
-        public async Task<IActionResult> ChangeCategoriesAsync(Guid id, [FromBody]Dto dto)
-        {
-            await _useCase.ChangeCategoriesAsync(
-                new ProductId(id),
-                dto.CategoryIds
-                    .Select(id => new CategoryId(id))
-                    .ToList());
-            return Ok();
-        }
-
-        public class Dto
-        {
-            public IReadOnlyCollection<int> CategoryIds { get; set; }
+            public Validation<Weight> Validate() =>
+                Domain.ProductAggregate.Weight.TryGrams(Weight);
         }
     }
 }
