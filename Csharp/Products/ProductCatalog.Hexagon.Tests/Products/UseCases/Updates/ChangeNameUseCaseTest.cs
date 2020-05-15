@@ -47,15 +47,15 @@ namespace ProductCatalog.Hexagon.Tests.Products.UseCases.Updates
         public async Task ShouldChangeName_WhenAllIsValid()
         {
             var product = ProductSamples.TypeMatrix();
-            var unitOfWork = Substitute.For<ISaveProduct>();
+            var saveProduct = Substitute.For<ISaveProduct>();
             var useCase = 
                 new ChangeNameUseCase(
                     RepositoryNameExistsReturning(false, product),
-                    unitOfWork);
+                    saveProduct);
             
             await useCase.ChangeNameAsync(product.Id, NewName);
 
-            await unitOfWork.Received().SaveAsync(product);
+            await saveProduct.Received().SaveAsync(product);
             Check.That(product.Name).Equals(NewName);
         }
 

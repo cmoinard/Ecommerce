@@ -9,14 +9,14 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
     public class CreateCategoryUseCase : ICreateCategoryUseCase
     {
         private readonly ICategoriesRepository _repository;
-        private readonly ICreateCategory _productCatalogUnitOfWork;
+        private readonly ICreateCategory _createCategory;
 
         public CreateCategoryUseCase(
             ICategoriesRepository repository,
-            ICreateCategory productCatalogUnitOfWork)
+            ICreateCategory createCategory)
         {
             _repository = repository;
-            _productCatalogUnitOfWork = productCatalogUnitOfWork;
+            _createCategory = createCategory;
         }
 
         public async Task<Category> CreateAsync(UncreatedCategory category)
@@ -25,7 +25,7 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
             if (nameAlreadyExists)
                 throw new CategoryNameAlreadyExistsException(category.Name);
 
-            return await _productCatalogUnitOfWork.CreateAsync(category);
+            return await _createCategory.CreateAsync(category);
         }
     }
 

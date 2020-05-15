@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProductCatalog.Hexagon.Products;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Infra.Sql.Models;
 
-namespace ProductCatalog.Infra.Sql
+namespace ProductCatalog.Infra.Sql.Products
 {
     public class DbProductsRepository : IProductsRepository
     {
@@ -42,20 +41,6 @@ namespace ProductCatalog.Infra.Sql
 
         public Task<bool> NameExistsAsync(ProductName name, ProductId exceptProductId) => 
             Set.AnyAsync(p => p.Name == (string)name && p.Id != (Guid)exceptProductId);
-
-        public async Task CreateAsync(UncreatedProduct product)
-        {
-            var dbProduct = DbProduct.FromDomain(product);
-            await Set.AddAsync(dbProduct);
-        }
-
-        public async Task DeleteAsync(Product product)
-        {
-            var dbProduct = await Set.FirstOrDefaultAsync(p => p.Id == (Guid) product.Id);
-            if (dbProduct != null)
-            {
-                Set.Remove(dbProduct);
-            }
-        }
+        
     }
 }

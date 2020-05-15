@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
-using ProductCatalog.Hexagon;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 
-namespace ProductCatalog.Infra.Sql
+namespace ProductCatalog.Infra.Sql.Products
 {
     public class DbSaveProduct : ISaveProduct
     {

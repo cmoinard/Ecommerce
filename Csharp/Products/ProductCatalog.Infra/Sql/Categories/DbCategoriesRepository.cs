@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProductCatalog.Hexagon.Categories;
 using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Infra.Sql.Models;
 using Shared.Core;
 
-namespace ProductCatalog.Infra.Sql
+namespace ProductCatalog.Infra.Sql.Categories
 {
     public class DbCategoriesRepository : ICategoriesRepository
     {
@@ -18,7 +17,6 @@ namespace ProductCatalog.Infra.Sql
         {
             _context = context;
         }
-
         private DbSet<DbCategory> Set => _context.Set<DbCategory>();
         
         public async Task<Category?> GetByIdAsync(CategoryId id)
@@ -41,21 +39,6 @@ namespace ProductCatalog.Infra.Sql
 
         public Task<bool> NameExistsAsync(CategoryName name) =>
             Set.AnyAsync(c => c.Name == (string)name);
-
-        public async Task CreateAsync(UncreatedCategory category)
-        {
-            await Set.AddAsync(DbCategory.FromDomain(category));
-        }
-
-        public async Task DeleteAsync(Category category)
-        {
-            var castedId = (int) category.Id;
-            var dbCategory = await Set.FirstOrDefaultAsync(c => c.Id == castedId);
-            if (dbCategory != null)
-            {
-                Set.Remove(dbCategory);
-            }
-        }
 
         public async Task<IReadOnlyCollection<CategoryId>> GetNonExistentIdsAsync(NonEmptyList<CategoryId> ids)
         {

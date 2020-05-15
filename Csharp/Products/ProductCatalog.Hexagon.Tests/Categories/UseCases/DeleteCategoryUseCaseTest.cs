@@ -31,12 +31,12 @@ namespace ProductCatalog.Hexagon.Tests.Categories.UseCases
         {
             var category = new Category(_id, new CategoryName("Keyboards"));
             var repository = RepositoryReturning(category);
-            var unitOfWork = Substitute.For<IDeleteCategory>();
-            var useCase = new DeleteCategoryUseCase(repository, unitOfWork);
+            var deleteCategory = Substitute.For<IDeleteCategory>();
+            var useCase = new DeleteCategoryUseCase(repository, deleteCategory);
 
             await useCase.DeleteAsync(_id);
             
-            await unitOfWork.Received().DeleteAsync(category);
+            await deleteCategory.Received().DeleteAsync(category);
         }
 
         private ICategoriesRepository RepositoryReturning(Category? category)

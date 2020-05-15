@@ -4,7 +4,8 @@ using ProductCatalog.Hexagon.Categories.UseCases;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
-using ProductCatalog.Infra.Sql;
+using ProductCatalog.Infra.Sql.Categories;
+using ProductCatalog.Infra.Sql.Products;
 using SimpleInjector;
 
 namespace ProductCatalog.Web
@@ -34,15 +35,15 @@ namespace ProductCatalog.Web
         
         private static void RegisterSecondaryPorts(Container container)
         {
-            // // In memory
-            // container.RegisterSingleton<ICategoriesRepository, CategoriesRepository>();
-            // container.RegisterSingleton<IProductsRepository, ProductsRepository>();
-            // container.RegisterSingleton<IProductCatalogUnitOfWork, InMemoryProductCatalogUnitOfWork>();
-
             // Database
-            container.Register<ICategoriesRepository, DbCategoriesRepository>();
+            container.Register<ICategoriesRepository, DbCategoriesRepository>(); 
+            container.Register<ICreateCategory, DbCreateCategory>();
+            container.Register<IDeleteCategory, DbDeleteCategory>();
+            
             container.Register<IProductsRepository, DbProductsRepository>();
             container.Register<ISaveProduct, DbSaveProduct>();
+            container.Register<ICreateProduct, DbCreateProduct>();
+            container.Register<IDeleteProduct, DbDeleteProduct>();
         }
     }
 }
