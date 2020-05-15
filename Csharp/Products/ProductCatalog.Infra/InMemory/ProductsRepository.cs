@@ -5,6 +5,7 @@ using ProductCatalog.Hexagon.Products;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Infra.InMemory.IdGenerators;
+using Shared.Core;
 using Shared.Domain;
 
 namespace ProductCatalog.Infra.InMemory
@@ -18,6 +19,15 @@ namespace ProductCatalog.Infra.InMemory
         {
             await Task.CompletedTask;
             return _products;
+        }
+
+        public async Task<IReadOnlyCollection<Product>> GetAsync(NonEmptyList<ProductId> productIds)
+        {
+            await Task.CompletedTask;
+            return 
+                _products
+                    .Where(p => productIds.Contains(p.Id))
+                    .ToList();
         }
 
         public async Task<Product?> GetByIdAsync(ProductId productId)

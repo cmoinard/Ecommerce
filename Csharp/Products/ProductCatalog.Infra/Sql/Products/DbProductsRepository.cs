@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Infra.Sql.Models;
+using Shared.Core;
 using Shared.Domain;
 
 namespace ProductCatalog.Infra.Sql.Products
@@ -24,6 +25,20 @@ namespace ProductCatalog.Infra.Sql.Products
         public async Task<IReadOnlyCollection<Product>> GetAsync()
         {
             var dbProducts = await Set.Include(p => p.Categories).ToListAsync();
+
+            return
+                dbProducts
+                    .Select(p => p.ToDomain())
+                    .ToList();
+        }
+
+        public async Task<IReadOnlyCollection<Product>> GetAsync(NonEmptyList<ProductId> productIds)
+        {
+            var productIdList = productIds.ToList();
+            var dbProducts = 
+                await Set.Include(p => p.Categories)
+                    .Where(p => productIdList.Any(pId => p.Id == (Guid)pId))
+                    .ToListAsync();
 
             return
                 dbProducts

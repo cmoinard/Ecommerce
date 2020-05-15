@@ -29,7 +29,7 @@ namespace ProductCatalog.Infra.Sql.Models
                     Size.Cm(Length),
                     Size.Cm(Width),
                     Size.Cm(Height)),
-                Hexagon.Products.Aggregate.Weight.Grams(Weight),
+                Shared.Domain.Weight.Grams(Weight),
                 Categories
                     .Select(c => new CategoryId(c.CategoryId))
                     .ToNonEmptyList()

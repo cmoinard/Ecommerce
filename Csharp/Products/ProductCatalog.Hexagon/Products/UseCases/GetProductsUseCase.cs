@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
+using Shared.Core;
 using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
@@ -19,6 +20,9 @@ namespace ProductCatalog.Hexagon.Products.UseCases
 
         public Task<IReadOnlyCollection<Product>> GetAsync() =>
             _repository.GetAsync();
+
+        public Task<IReadOnlyCollection<Product>> GetAsync(NonEmptyList<ProductId> productIds) => 
+            _repository.GetAsync(productIds);
 
         public Task<Product> GetByIdAsync(ProductId id) =>
             SafeGetProductAsync(id);

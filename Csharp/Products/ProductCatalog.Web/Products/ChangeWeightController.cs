@@ -33,7 +33,7 @@ namespace ProductCatalog.Web.Products
             public int Weight { get; set; }
 
             public Validation<Weight> Validate() =>
-                Hexagon.Products.Aggregate.Weight.TryGrams(Weight);
+                Shared.Domain.Weight.TryGrams(Weight);
         }
     }
 }

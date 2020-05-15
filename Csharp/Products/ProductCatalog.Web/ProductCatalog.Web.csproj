@@ -2,9 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <OutputType>Library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Shared\Shared.Web\Shared.Web.csproj" />
       <ProjectReference Include="..\ProductCatalog.Infra\ProductCatalog.Infra.csproj" />
     </ItemGroup>
 

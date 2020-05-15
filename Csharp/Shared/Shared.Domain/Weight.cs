@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Shared.Core.DomainModeling;
 using Shared.Core.Validations;
 
-namespace ProductCatalog.Hexagon.Products.Aggregate
+namespace Shared.Domain
 {
-    public class Weight : SimpleValueObject<int>
+    public class Weight : ComparableValueObject<int>
     {
         private readonly int _grams;
 
@@ -20,6 +22,9 @@ namespace ProductCatalog.Hexagon.Products.Aggregate
 
         public static Weight Grams(int grams) => new Weight(grams);
         public static Weight Kg(int kg) => new Weight(kg * 1000);
+        
+        public static Weight operator +(Weight w1, Weight w2) =>
+            new Weight(w1.InternalValue + w2.InternalValue);
 
         public static Validation<Weight> TryGrams(int grams) =>
             ValidateGrams(grams)
@@ -36,5 +41,18 @@ namespace ProductCatalog.Hexagon.Products.Aggregate
         }
         
         public class NegativeSizeValidationError : SimpleValidationError {}
+    }
+
+    public static class WeightExtensions
+    {
+        public static Weight Sum<T>(this IEnumerable<T> source, Func<T, Weight> getWeight)
+        {
+            var totalGrams =
+                source
+                    .Select(s => getWeight(s).ToGrams())
+                    .Sum();
+            
+            return Weight.Grams(totalGrams);
+        }
     }
 }

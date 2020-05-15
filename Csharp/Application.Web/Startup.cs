@@ -1,18 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ProductCatalog.Infra.Sql;
 using SimpleInjector;
 
-namespace ProductCatalog.Web
+namespace Application.Web
 {
     public class Startup
     {
-        private readonly Container _container = new Container();
-        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -23,18 +19,27 @@ namespace ProductCatalog.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ProductCatalogContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Hexagonal")));
-            
             services.AddControllers();
-            services.AddSimpleInjector(_container, options =>
+            
+            ConfigureIoC(services);
+        }
+
+        private void ConfigureIoC(IServiceCollection services)
+        {
+            var container = new Container();
+            services.AddSimpleInjector(container, options =>
             {
                 options
                     .AddAspNetCore()
                     .AddControllerActivation();
             });
-            
-            ContainerRegistrations.Register(_container);
+
+            var adapter = new SimpleInjectorContainerAdapter(container);
+            var registration = HexagonRegistrationFactory.AllHexagonRegistration(adapter);
+            registration.RegisterPrimaryPorts();
+            registration.RegisterSecondaryPorts();
+            registration.RegisterOther();
+            registration.RegisterDbContext(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
