@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Pricing.Hexagon\Pricing.Hexagon.csproj" />
       <ProjectReference Include="..\..\Shared\Shared.Web\Shared.Web.csproj" />
+      <ProjectReference Include="..\Pricing.Hexagon\Pricing.Hexagon.csproj" />
       <ProjectReference Include="..\Pricing.Infra\Pricing.Infra.csproj" />
     </ItemGroup>
 

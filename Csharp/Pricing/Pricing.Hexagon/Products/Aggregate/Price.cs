@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Shared.Core.DomainModeling;
 using Shared.Core.Validations;
-using Shared.Domain;
 
 namespace Pricing.Hexagon.Products.Aggregate
 {

@@ -11,7 +11,7 @@ namespace ProductCatalog.Hexagon.Tests.Products
         public static Product TypeMatrix() =>
             new Product(
                 new ProductId(Guid.NewGuid()), 
-                new ProductName("TypeMatrix 2030 BÉPO"), 
+                new ProductName("TypeMatrix"), 
                 new ProductDescription("Best keyboard ever"),
                 new Dimension(
                     Size.Cm(33),
