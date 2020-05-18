@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Products;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;

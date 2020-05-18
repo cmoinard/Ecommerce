@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Products;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using Shared.Core.Extensions;

@@ -1,5 +1,4 @@
 using System;
-using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using Shared.Core;
 using Shared.Domain;

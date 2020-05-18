@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Pricing.Hexagon.Products;
 using Pricing.Hexagon.Products.Aggregate;
 using Shared.Core.DomainModeling;
 using Shared.Core.Validations;

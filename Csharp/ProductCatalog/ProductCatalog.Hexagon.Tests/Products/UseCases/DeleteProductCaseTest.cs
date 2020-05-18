@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using NFluent;
 using NSubstitute;
-using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using Shared.Domain;

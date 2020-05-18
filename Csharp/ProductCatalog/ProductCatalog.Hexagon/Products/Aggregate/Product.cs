@@ -1,5 +1,4 @@
 using System.Linq;
-using ProductCatalog.Hexagon.Categories.Aggregate;
 using Shared.Core;
 using Shared.Core.DomainModeling;
 using Shared.Core.Extensions;
