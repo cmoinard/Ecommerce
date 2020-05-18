@@ -10,9 +10,4 @@
       <ProjectReference Include="..\..\Shared\Shared.Domain\Shared.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Products\PrimaryPorts" />
-      <Folder Include="Products\SecondaryPorts" />
-    </ItemGroup>
-
 </Project>

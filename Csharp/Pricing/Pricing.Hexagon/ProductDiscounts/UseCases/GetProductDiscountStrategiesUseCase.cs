@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Pricing.Hexagon.ProductDiscounts.PrimaryPorts;
 using Pricing.Hexagon.ProductDiscounts.SecondaryPorts;
 using Pricing.Hexagon.ProductDiscounts.Strategies;
+using Pricing.Hexagon.Products.SecondaryPorts;
 using Shared.Core;
 using Shared.Domain;
 
@@ -17,11 +19,11 @@ namespace Pricing.Hexagon.ProductDiscounts.UseCases
     public class GetProductDiscountStrategiesUseCase : IGetProductDiscountStrategiesUseCase
     {
         private readonly IProductWeightRepository _productWeightRepository;
-        private readonly IProductPriceRepository _productPriceRepository;
+        private readonly IProductPricesRepository _productPriceRepository;
 
         public GetProductDiscountStrategiesUseCase(
             IProductWeightRepository productWeightRepository,
-            IProductPriceRepository productPriceRepository)
+            IProductPricesRepository productPriceRepository)
         {
             _productWeightRepository = productWeightRepository;
             _productPriceRepository = productPriceRepository;
@@ -29,8 +31,10 @@ namespace Pricing.Hexagon.ProductDiscounts.UseCases
         
         public async Task<IReadOnlyCollection<IProductGlobalDiscountStrategy>> GetGlobalDiscountStrategies(NonEmptyList<ProductId> productIds)
         {
-            var priceByProductId = await _productPriceRepository.GetPriceByProductIdAsync(productIds);
-            var priceStrategy = new ProductGlobalPriceDiscountStrategy(priceByProductId);
+            var products = await _productPriceRepository.GetAsync(productIds);
+            var priceStrategy =
+                new ProductGlobalPriceDiscountStrategy(
+                    products.ToDictionary(p => p.Id, p => p.Price));
             
             var weightByProductId = await _productWeightRepository.GetWeightByProductIdAsync(productIds);
             var weightStrategy = new ProductGlobalWeightDiscountStrategy(weightByProductId);

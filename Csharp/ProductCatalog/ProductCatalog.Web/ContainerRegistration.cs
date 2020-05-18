@@ -24,10 +24,11 @@ namespace ProductCatalog.Web
 
         public override void RegisterPrimaryPorts()
         {
+            Container.Register<IGetCategoryUseCase, GetCategoryUseCase>();
             Container.Register<ICreateCategoryUseCase, CreateCategoryUseCase>();
             Container.Register<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
-            Container.Register<IGetCategoryUseCase, GetCategoryUseCase>();
 
+            Container.Register<IGetProductsUseCase, GetProductsUseCase>();
             Container.Register<ICreateProductUseCase, CreateProductUseCase>();
             Container.Register<IDeleteProductUseCase, DeleteProductUseCase>();
             Container.Register<IChangeCategoriesUseCase, ChangeCategoriesUseCase>();
