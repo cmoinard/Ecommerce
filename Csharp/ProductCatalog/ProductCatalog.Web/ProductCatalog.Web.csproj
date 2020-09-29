@@ -15,5 +15,9 @@
       <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="4.10.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Categories" />
+    </ItemGroup>
+
 
 </Project>
