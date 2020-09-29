@@ -14,12 +14,12 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
             _repository = repository;
         }
         
-        public async Task DeleteAsync(string categoryId)
+        public async Task DeleteAsync(CategoryId categoryId)
         {
             var exists = await _repository.ExistsAsync(categoryId);
             if (!exists)
             {
-                throw new NotFoundException<string>(categoryId);
+                throw new NotFoundException<CategoryId>(categoryId);
             }
 
             await _repository.DeleteAsync(categoryId);

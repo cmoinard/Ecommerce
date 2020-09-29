@@ -5,6 +5,6 @@ namespace ProductCatalog.Hexagon.Categories.PrimaryPorts
 {
     public interface IGetCategoriesUseCase
     {
-        Task<IReadOnlyCollection<string>> GetAllAsync();
+        Task<IReadOnlyCollection<Category>> GetAllAsync();
     }
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProductCatalog.Hexagon.Categories;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using Shared.Core.Exceptions;
 
@@ -32,12 +34,18 @@ namespace ProductCatalog.Web.Categories
         {
             try
             {
-                await _deleteUseCase.DeleteAsync(categoryId);
+                var id = new CategoryId(Guid.Parse(categoryId));
+
+                await _deleteUseCase.DeleteAsync(id);
                 return Ok();
             }
-            catch (NotFoundException<string>)
+            catch (NotFoundException<CategoryId>)
             {
                 return Ok();
+            }
+            catch (FormatException)
+            {
+                return BadRequest("Invalid categoryId format");
             }
         }
     }

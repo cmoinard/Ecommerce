@@ -15,7 +15,7 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
             _repository = repository;
         }
         
-        public Task<IReadOnlyCollection<string>> GetAllAsync() => 
+        public Task<IReadOnlyCollection<Category>> GetAllAsync() => 
             _repository.GetAllAsync();
     }
 }

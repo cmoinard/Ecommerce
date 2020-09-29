@@ -4,6 +4,6 @@ namespace ProductCatalog.Hexagon.Categories.PrimaryPorts
 {
     public interface IDeleteCategoryUseCase
     {
-        Task DeleteAsync(string categoryId);
+        Task DeleteAsync(CategoryId categoryId);
     }
 }
