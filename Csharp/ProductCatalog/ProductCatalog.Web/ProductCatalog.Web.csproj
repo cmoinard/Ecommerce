@@ -7,7 +7,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Web\Shared.Web.csproj" />
-      <ProjectReference Include="..\ProductCatalog.Infra\ProductCatalog.Infra.csproj" />
     </ItemGroup>
 
     <ItemGroup>

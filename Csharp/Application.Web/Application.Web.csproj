@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Pricing\Pricing.Web\Pricing.Web.csproj" />
       <ProjectReference Include="..\ProductCatalog\ProductCatalog.Web\ProductCatalog.Web.csproj" />
       <ProjectReference Include="..\Shared\Shared.Web\Shared.Web.csproj" />
     </ItemGroup>
