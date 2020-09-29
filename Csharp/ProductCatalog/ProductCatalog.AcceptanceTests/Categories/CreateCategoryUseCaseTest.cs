@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NFluent;
 using NSubstitute;
+using ProductCatalog.Hexagon.Categories;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
@@ -12,6 +14,13 @@ namespace ProductCatalog.AcceptanceTests.Categories
 {
     public class CreateCategoryUseCaseTest
     {
+        private readonly CategoryId _createdCategoryId;
+
+        public CreateCategoryUseCaseTest()
+        {
+            _createdCategoryId = new CategoryId(new Guid());
+        }
+
         [Fact]
         public async Task ShouldReturn400_WhenCategoryNameAlreadyExists()
         {
@@ -42,23 +51,28 @@ namespace ProductCatalog.AcceptanceTests.Categories
         }
 
         [Fact]
-        public async Task ShouldReturn201_WhenCategoryNameIsValid()
+        public async Task ShouldReturn200_WhenCategoryNameIsValid()
         {
             var controller = 
                 BuildController(
-                    BuildRepository(nameExists: true));
+                    BuildRepository(nameExists: false));
 
             var actual =
                 await controller.PostAsync(
                     new CreateCategoryDto{ CategoryName = "écrans"});
 
-            Check.That(actual).IsInstanceOf<CreatedResult>();
+            Check.That(actual).IsInstanceOf<OkObjectResult>();
+            Check.That(((OkObjectResult) actual).Value)
+                .Equals(_createdCategoryId);
         }
 
-        private static ICategoriesRepository BuildRepository(bool nameExists)
+        private ICategoriesRepository BuildRepository(bool nameExists)
         {
             var repository = Substitute.For<ICategoriesRepository>();
-            repository.NameAlreadyExistsAsync(Arg.Any<string>()).Returns(nameExists);
+            
+            repository.NameAlreadyExistsAsync(Arg.Any<CategoryName>()).Returns(nameExists);
+            repository.CreateAsync(Arg.Any<CategoryName>()).Returns(_createdCategoryId);
+            
             return repository;
         }
 

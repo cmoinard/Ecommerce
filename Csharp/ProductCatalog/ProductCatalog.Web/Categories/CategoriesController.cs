@@ -1,9 +1,13 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.Hexagon.Categories;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
+using ProductCatalog.Hexagon.Categories.UseCases;
 using Shared.Core.Exceptions;
+using Shared.Core.Extensions;
+using Shared.Core.Validations;
 
 namespace ProductCatalog.Web.Categories
 {
@@ -64,6 +68,22 @@ namespace ProductCatalog.Web.Categories
             {
                 return BadRequest($"Name {ex.CategoryName} already exists");
             }
+            catch (ValidationException ex)
+            {
+                return BadRequest(
+                    "Name is invalid :\n" +
+                    ex.Errors
+                        .Select(e => $"\t- {GetValidationErrorLabel(e)}")
+                        .JoinWith("\n"));
+            }
         }
+
+        private static string GetValidationErrorLabel(ValidationError error) =>
+            error switch
+            {
+                CategoryName.EmptyValidationError _ => "Nom vide",  
+                CategoryName.ExceedsMaxLengthValidationError _ => $"Nom excède {CategoryName.MaxLength} caractères",
+                _ => throw new NotSupportedException()
+            };
     }
 }

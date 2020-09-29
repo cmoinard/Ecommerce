@@ -11,8 +11,8 @@ namespace ProductCatalog.SecondaryAdapters
     {
         private readonly List<Category> _categories = new List<Category>
         {
-            new Category(new CategoryId(Guid.NewGuid()), "claviers"), 
-            new Category(new CategoryId(Guid.NewGuid()), "souris")
+            new Category(new CategoryId(Guid.NewGuid()), new CategoryName("claviers")), 
+            new Category(new CategoryId(Guid.NewGuid()), new CategoryName("souris"))
         };
         
         public async Task<IReadOnlyCollection<Category>> GetAllAsync()
@@ -33,10 +33,20 @@ namespace ProductCatalog.SecondaryAdapters
             _categories.RemoveAll(c => c.Id == categoryId);
         }
 
-        public async Task<bool> NameAlreadyExistsAsync(string categoryName)
+        public async Task<bool> NameAlreadyExistsAsync(CategoryName categoryName)
         {
             await Task.CompletedTask;
             return _categories.Any(c => c.Name == categoryName);
+        }
+
+        public async Task<CategoryId> CreateAsync(CategoryName categoryName)
+        {
+            await Task.CompletedTask;
+            var categoryId = new CategoryId(Guid.NewGuid());
+
+            _categories.Add(new Category(categoryId, categoryName));
+            
+            return categoryId;
         }
     }
 }

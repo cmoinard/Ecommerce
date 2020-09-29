@@ -1,6 +1,6 @@
 using Shared.Core.Exceptions;
 
-namespace ProductCatalog.Hexagon.Categories
+namespace ProductCatalog.Hexagon.Categories.UseCases
 {
     public class CategoryNameAlreadyExistsException : DomainException
     {

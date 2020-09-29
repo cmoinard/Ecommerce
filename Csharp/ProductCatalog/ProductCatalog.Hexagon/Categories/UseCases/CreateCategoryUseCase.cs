@@ -17,12 +17,15 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
 
         public async Task<CategoryId> CreateAsync(string categoryName)
         {
-            if (await _repository.NameAlreadyExistsAsync(categoryName))
+            var validation = CategoryName.TryCreate(categoryName);
+            
+            if (await _repository.NameAlreadyExistsAsync(validation.Value))
             {
                 throw new CategoryNameAlreadyExistsException(categoryName);
             }
             
-            throw new NotImplementedException();
+            var categoryId = await _repository.CreateAsync(validation.Value);
+            return categoryId;
         }
     }
 }

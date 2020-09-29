@@ -4,12 +4,12 @@ namespace ProductCatalog.Hexagon.Categories
 {
     public class Category : AggregateRoot<CategoryId>
     {
-        public Category(CategoryId id, string name)
+        public Category(CategoryId id, CategoryName name)
             : base(id)
         {
             Name = name;
         }
 
-        public string Name { get; }
+        public CategoryName Name { get; }
     }
 }
