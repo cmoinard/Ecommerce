@@ -7,16 +7,14 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Web\Shared.Web.csproj" />
+      <ProjectReference Include="..\ProductCatalog.Hexagon\ProductCatalog.Hexagon.csproj" />
+      <ProjectReference Include="..\ProductCatalog.SecondaryAdapters\ProductCatalog.SecondaryAdapters.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="SimpleInjector" Version="4.10.2" />
       <PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="4.10.3" />
       <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="4.10.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Categories" />
     </ItemGroup>
 
 
