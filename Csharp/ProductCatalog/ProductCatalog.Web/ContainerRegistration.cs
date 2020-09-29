@@ -17,6 +17,7 @@ namespace ProductCatalog.Web
         public override void RegisterPrimaryPorts()
         {
             Container.Register<IGetCategoriesUseCase, GetCategoriesUseCase>();
+            Container.Register<IDeleteCategoryUseCase, DeleteCategoryUseCase>();
         }
 
         public override void RegisterSecondaryPorts()
