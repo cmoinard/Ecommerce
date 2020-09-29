@@ -32,5 +32,11 @@ namespace ProductCatalog.SecondaryAdapters
             await Task.CompletedTask;
             _categories.RemoveAll(c => c.Id == categoryId);
         }
+
+        public async Task<bool> NameAlreadyExistsAsync(string categoryName)
+        {
+            await Task.CompletedTask;
+            return _categories.Any(c => c.Name == categoryName);
+        }
     }
 }

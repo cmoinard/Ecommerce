@@ -13,13 +13,16 @@ namespace ProductCatalog.Web.Categories
     {
         private readonly IGetCategoriesUseCase _getUseCase;
         private readonly IDeleteCategoryUseCase _deleteUseCase;
+        private readonly ICreateCategoryUseCase _createUseCase;
 
         public CategoriesController(
             IGetCategoriesUseCase getUseCase,
-            IDeleteCategoryUseCase deleteUseCase)
+            IDeleteCategoryUseCase deleteUseCase,
+            ICreateCategoryUseCase createUseCase)
         {
             _getUseCase = getUseCase;
             _deleteUseCase = deleteUseCase;
+            _createUseCase = createUseCase;
         }
 
         [HttpGet]
@@ -46,6 +49,20 @@ namespace ProductCatalog.Web.Categories
             catch (FormatException)
             {
                 return BadRequest("Invalid categoryId format");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAsync([FromBody]CreateCategoryDto category)
+        {
+            try
+            {
+                var categoryId = await _createUseCase.CreateAsync(category.CategoryName);
+                return Ok(categoryId);
+            }
+            catch (CategoryNameAlreadyExistsException ex)
+            {
+                return BadRequest($"Name {ex.CategoryName} already exists");
             }
         }
     }

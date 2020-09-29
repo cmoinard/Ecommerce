@@ -8,5 +8,6 @@ namespace ProductCatalog.Hexagon.Categories.SecondaryPorts
         Task<IReadOnlyCollection<Category>> GetAllAsync();
         Task<bool> ExistsAsync(CategoryId categoryId);
         Task DeleteAsync(CategoryId categoryId);
+        Task<bool> NameAlreadyExistsAsync(string categoryName);
     }
 }
