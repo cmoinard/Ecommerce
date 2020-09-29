@@ -61,7 +61,7 @@ namespace ProductCatalog.Web.Categories
         {
             try
             {
-                var categoryId = await _createUseCase.CreateAsync(category.CategoryName);
+                var categoryId = await _createUseCase.CreateAsync(category.ToDomain());
                 return Ok(categoryId);
             }
             catch (CategoryNameAlreadyExistsException ex)

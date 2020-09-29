@@ -4,11 +4,11 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
 {
     public class CategoryNameAlreadyExistsException : DomainException
     {
-        public CategoryNameAlreadyExistsException(string categoryName)
+        public CategoryNameAlreadyExistsException(CategoryName categoryName)
         {
             CategoryName = categoryName;
         }
 
-        public string CategoryName { get; }
+        public CategoryName CategoryName { get; }
     }
 }

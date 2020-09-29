@@ -9,6 +9,6 @@ namespace ProductCatalog.Hexagon.Categories.SecondaryPorts
         Task<bool> ExistsAsync(CategoryId categoryId);
         Task DeleteAsync(CategoryId categoryId);
         Task<bool> NameAlreadyExistsAsync(CategoryName categoryName);
-        Task<CategoryId> CreateAsync(CategoryName categoryName);
+        Task<CategoryId> CreateAsync(UncreatedCategory categoryName);
     }
 }

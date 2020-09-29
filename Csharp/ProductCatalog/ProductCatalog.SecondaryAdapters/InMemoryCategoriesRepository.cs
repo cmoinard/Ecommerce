@@ -39,12 +39,12 @@ namespace ProductCatalog.SecondaryAdapters
             return _categories.Any(c => c.Name == categoryName);
         }
 
-        public async Task<CategoryId> CreateAsync(CategoryName categoryName)
+        public async Task<CategoryId> CreateAsync(UncreatedCategory category)
         {
             await Task.CompletedTask;
             var categoryId = new CategoryId(Guid.NewGuid());
 
-            _categories.Add(new Category(categoryId, categoryName));
+            _categories.Add(new Category(categoryId, category.Name));
             
             return categoryId;
         }

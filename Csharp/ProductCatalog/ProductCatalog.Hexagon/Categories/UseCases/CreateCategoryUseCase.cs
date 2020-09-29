@@ -15,16 +15,14 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
             _repository = repository;
         }
 
-        public async Task<CategoryId> CreateAsync(string categoryName)
+        public async Task<CategoryId> CreateAsync(UncreatedCategory category)
         {
-            var validation = CategoryName.TryCreate(categoryName);
-            
-            if (await _repository.NameAlreadyExistsAsync(validation.Value))
+            if (await _repository.NameAlreadyExistsAsync(category.Name))
             {
-                throw new CategoryNameAlreadyExistsException(categoryName);
+                throw new CategoryNameAlreadyExistsException(category.Name);
             }
             
-            var categoryId = await _repository.CreateAsync(validation.Value);
+            var categoryId = await _repository.CreateAsync(category);
             return categoryId;
         }
     }

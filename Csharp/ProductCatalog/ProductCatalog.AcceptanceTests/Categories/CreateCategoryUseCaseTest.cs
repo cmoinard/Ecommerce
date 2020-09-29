@@ -71,7 +71,7 @@ namespace ProductCatalog.AcceptanceTests.Categories
             var repository = Substitute.For<ICategoriesRepository>();
             
             repository.NameAlreadyExistsAsync(Arg.Any<CategoryName>()).Returns(nameExists);
-            repository.CreateAsync(Arg.Any<CategoryName>()).Returns(_createdCategoryId);
+            repository.CreateAsync(Arg.Any<UncreatedCategory>()).Returns(_createdCategoryId);
             
             return repository;
         }
