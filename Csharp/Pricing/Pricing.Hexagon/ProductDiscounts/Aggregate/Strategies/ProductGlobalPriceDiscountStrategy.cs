@@ -17,10 +17,10 @@ namespace Pricing.Hexagon.ProductDiscounts.Aggregate.Strategies
             _priceByProductId = priceByProductId;
         }
         
-        public IDiscount GetDiscount(IReadOnlyCollection<ProductPrice> productPrices)
+        public IDiscount GetDiscount(IReadOnlyCollection<ProductId> productIds)
         {
-            var totalPrice = _priceByProductId.Values.Sum();
-            return totalPrice > PriceThreshold
+            var totalPrice = productIds.Sum(id => _priceByProductId[id]);
+            return totalPrice >= PriceThreshold
                 ? Discount.Price(25)
                 : Discount.None;
         }

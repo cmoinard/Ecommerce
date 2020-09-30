@@ -28,7 +28,7 @@ namespace ProductCatalog.Hexagon.Categories.Aggregate
             {
                 errors.Add(new EmptyValidationError());
             }
-            else if (trimmedName.Length > MaxLength)
+            else if (trimmedName!.Length > MaxLength)
             {
                 errors.Add(new ExceedsMaxLengthValidationError());
             }

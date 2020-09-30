@@ -17,9 +17,9 @@ namespace Pricing.Hexagon.ProductDiscounts.Aggregate.Strategies
             _weightByProductId = weightByProductId;
         }
 
-        public IDiscount GetDiscount(IReadOnlyCollection<ProductPrice> productPrices)
+        public IDiscount GetDiscount(IReadOnlyCollection<ProductId> productIds)
         {
-            var totalWeight = productPrices.Sum(pp => _weightByProductId[pp.Id]);
+            var totalWeight = productIds.Sum(id => _weightByProductId[id]);
             return totalWeight >= WeightThreshold
                 ? Discount.Percent(5)
                 : Discount.None;
