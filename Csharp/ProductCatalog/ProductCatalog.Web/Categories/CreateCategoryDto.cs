@@ -1,4 +1,5 @@
 using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 
 namespace ProductCatalog.Web.Categories
 {

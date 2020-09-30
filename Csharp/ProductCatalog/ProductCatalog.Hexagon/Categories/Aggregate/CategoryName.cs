@@ -3,7 +3,7 @@ using Shared.Core.DomainModeling;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
 
-namespace ProductCatalog.Hexagon.Categories
+namespace ProductCatalog.Hexagon.Categories.Aggregate
 {
     public class CategoryName : StringBasedValueObject
     {

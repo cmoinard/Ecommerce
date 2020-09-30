@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
 using Shared.Core.Exceptions;
@@ -36,12 +36,12 @@ namespace ProductCatalog.Web.Categories
             return Ok(categories);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteAsync(string categoryId)
+        [HttpDelete("{categoryId}")]
+        public async Task<IActionResult> DeleteAsync([FromQuery]int categoryId)
         {
             try
             {
-                var id = new CategoryId(Guid.Parse(categoryId));
+                var id = new CategoryId(categoryId);
 
                 await _deleteUseCase.DeleteAsync(id);
                 return Ok();
@@ -49,10 +49,6 @@ namespace ProductCatalog.Web.Categories
             catch (NotFoundException<CategoryId>)
             {
                 return Ok();
-            }
-            catch (FormatException)
-            {
-                return BadRequest("Invalid categoryId format");
             }
         }
 

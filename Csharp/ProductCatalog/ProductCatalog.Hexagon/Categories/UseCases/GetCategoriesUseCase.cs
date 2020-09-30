@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 

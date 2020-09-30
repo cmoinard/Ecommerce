@@ -1,9 +1,9 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NFluent;
 using NSubstitute;
 using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
@@ -12,13 +12,13 @@ using Xunit;
 
 namespace ProductCatalog.AcceptanceTests.Categories
 {
-    public class CreateCategoryUseCaseTest
+    public class CreateCategoryControllerTest
     {
         private readonly CategoryId _createdCategoryId;
 
-        public CreateCategoryUseCaseTest()
+        public CreateCategoryControllerTest()
         {
-            _createdCategoryId = new CategoryId(new Guid());
+            _createdCategoryId = new CategoryId(1);
         }
 
         [Fact]

@@ -1,6 +1,6 @@
 using Shared.Core.DomainModeling;
 
-namespace ProductCatalog.Hexagon.Categories
+namespace ProductCatalog.Hexagon.Categories.Aggregate
 {
     public class Category : AggregateRoot<CategoryId>
     {

@@ -1,3 +1,5 @@
+using ProductCatalog.Hexagon.Categories.Aggregate;
+
 namespace ProductCatalog.Hexagon.Categories
 {
     public class UncreatedCategory

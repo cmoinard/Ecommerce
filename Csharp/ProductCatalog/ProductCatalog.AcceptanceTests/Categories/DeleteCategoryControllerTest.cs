@@ -1,9 +1,8 @@
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NFluent;
 using NSubstitute;
-using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
@@ -12,27 +11,15 @@ using Xunit;
 
 namespace ProductCatalog.AcceptanceTests.Categories
 {
-    public class DeleteCategoryUseCaseTest
+    public class DeleteCategoryControllerTest
     {
-        [Fact]
-        public async Task ShouldReturn400_WhenDeletingInvalidCategoryId()
-        {
-            var useCase = 
-                BuildController(
-                    Substitute.For<ICategoriesRepository>());
-
-            var actual = await useCase.DeleteAsync("format invalide");
-            
-            Check.That(actual).IsInstanceOf<BadRequestObjectResult>();
-        }
-
         [Fact]
         public async Task ShouldReturn200_WhenDeletingInexistantCategory()
         {
             var repository = BuildRepository(false);
             var useCase = BuildController(repository);
 
-            var actual = await useCase.DeleteAsync("AC7CFC06-E3AD-44C1-836D-8C3AD2C579F3");
+            var actual = await useCase.DeleteAsync(2222);
 
             Check.That(actual).IsInstanceOf<OkResult>();
             await repository.DidNotReceive().DeleteAsync(Arg.Any<CategoryId>());
@@ -44,12 +31,11 @@ namespace ProductCatalog.AcceptanceTests.Categories
             var repository = BuildRepository(true);
             var useCase = BuildController(repository);
 
-            var id = "AC7CFC06-E3AD-44C1-836D-8C3AD2C579F3";
-            var existingId = new CategoryId(new Guid(id));
-            var actual = await useCase.DeleteAsync(id);
+            var categoryId = new CategoryId(1);
+            var actual = await useCase.DeleteAsync(1);
 
             Check.That(actual).IsInstanceOf<OkResult>();
-            await repository.Received().DeleteAsync(existingId);
+            await repository.Received().DeleteAsync(categoryId);
         }
 
         private static ICategoriesRepository BuildRepository(bool exists)

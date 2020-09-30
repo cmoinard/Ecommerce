@@ -1,5 +1,5 @@
 using NFluent;
-using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using Shared.Core.Validations;
 using Xunit;
 

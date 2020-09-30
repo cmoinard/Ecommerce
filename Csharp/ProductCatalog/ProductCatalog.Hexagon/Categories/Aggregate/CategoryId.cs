@@ -1,11 +1,10 @@
-using System;
 using Shared.Core.DomainModeling;
 
-namespace ProductCatalog.Hexagon.Categories
+namespace ProductCatalog.Hexagon.Categories.Aggregate
 {
-    public class CategoryId : Id<Guid>
+    public class CategoryId : Id<int>
     {
-        public CategoryId(Guid internalValue) : base(internalValue)
+        public CategoryId(int internalValue) : base(internalValue)
         {
         }
     }

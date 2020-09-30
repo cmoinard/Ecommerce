@@ -1,3 +1,4 @@
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using Shared.Core.Exceptions;
 
 namespace ProductCatalog.Hexagon.Categories.UseCases
