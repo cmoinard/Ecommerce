@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Categories.Aggregate;
 using Shared.Core;
+using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Categories.SecondaryPorts
 {

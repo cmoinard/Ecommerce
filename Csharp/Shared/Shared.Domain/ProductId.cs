@@ -1,7 +1,7 @@
 using System;
 using Shared.Core.DomainModeling;
 
-namespace ProductCatalog.Hexagon.Products.Aggregate
+namespace Shared.Domain
 {
     public class ProductId : Id<Guid>
     {

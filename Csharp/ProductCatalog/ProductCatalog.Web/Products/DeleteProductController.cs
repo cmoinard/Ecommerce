@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using Shared.Core.Exceptions;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products
 {

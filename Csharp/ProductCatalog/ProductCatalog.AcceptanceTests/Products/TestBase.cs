@@ -2,6 +2,7 @@ using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
+using Shared.Domain;
 
 namespace ProductCatalog.AcceptanceTests.Products
 {

@@ -1,4 +1,5 @@
 using Shared.Core.DomainModeling;
+using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Categories.Aggregate
 {

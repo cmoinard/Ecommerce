@@ -3,6 +3,7 @@ using ProductCatalog.Hexagon.Categories;
 using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using Shared.Core;
+using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Products.PrimaryPorts
 {

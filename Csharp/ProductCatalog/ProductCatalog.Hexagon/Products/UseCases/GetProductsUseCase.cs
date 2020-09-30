@@ -4,6 +4,7 @@ using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using Shared.Core;
+using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {

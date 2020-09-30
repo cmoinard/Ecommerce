@@ -5,6 +5,7 @@ using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Web.Products.Dtos;
 using Shared.Core.Exceptions;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products
 {

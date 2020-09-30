@@ -10,6 +10,7 @@ using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.Hexagon.Products.UseCases;
 using ProductCatalog.Web.Products;
 using Shared.Core;
+using Shared.Domain;
 using Xunit;
 
 namespace ProductCatalog.AcceptanceTests.Products.Updates

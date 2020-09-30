@@ -7,6 +7,7 @@ using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using ProductCatalog.Hexagon.Categories.UseCases;
 using ProductCatalog.Web.Categories;
+using Shared.Domain;
 using Xunit;
 
 namespace ProductCatalog.AcceptanceTests.Categories

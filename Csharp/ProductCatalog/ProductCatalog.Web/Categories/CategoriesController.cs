@@ -8,6 +8,7 @@ using ProductCatalog.Hexagon.Categories.UseCases;
 using Shared.Core.Exceptions;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Categories
 {

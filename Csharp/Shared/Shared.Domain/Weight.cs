@@ -4,7 +4,7 @@ using System.Linq;
 using Shared.Core.DomainModeling;
 using Shared.Core.Validations;
 
-namespace ProductCatalog.Hexagon.Products.Aggregate
+namespace Shared.Domain
 {
     public class Weight : ComparableValueObject<int>
     {

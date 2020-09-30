@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Shared.Core
 {
-    public class NonEmptyString : StructuralEqualityObject
+    public class NonEmptyString : StructuralEqualityObject
     {
         private readonly string _value;
 

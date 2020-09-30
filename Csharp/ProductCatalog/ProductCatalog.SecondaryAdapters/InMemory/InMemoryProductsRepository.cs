@@ -6,6 +6,7 @@ using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using ProductCatalog.SecondaryAdapters.InMemory.IdGenerators;
 using Shared.Core;
+using Shared.Domain;
 
 namespace ProductCatalog.SecondaryAdapters.InMemory
 {

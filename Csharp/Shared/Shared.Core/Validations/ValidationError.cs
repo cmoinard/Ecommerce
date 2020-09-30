@@ -6,7 +6,7 @@ using Shared.Core.Extensions;
 
 namespace Shared.Core.Validations
 {
-    public abstract class ValidationError : StructuralEqualityObject
+    public abstract class ValidationError : StructuralEqualityObject
     {
     }
 

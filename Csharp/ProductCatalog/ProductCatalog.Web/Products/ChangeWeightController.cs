@@ -5,6 +5,7 @@ using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using Shared.Core.Exceptions;
 using Shared.Core.Validations;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products
 {
@@ -44,7 +45,7 @@ namespace ProductCatalog.Web.Products
             public int Weight { get; set; }
 
             public Validation<Weight> Validate() =>
-                Hexagon.Products.Aggregate.Weight.TryGrams(Weight);
+                Shared.Domain.Weight.TryGrams(Weight);
         }
     }
 }

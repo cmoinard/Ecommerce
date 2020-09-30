@@ -6,6 +6,7 @@ using ProductCatalog.Hexagon.Products.Aggregate;
 using Shared.Core;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products.Dtos
 {
@@ -26,7 +27,7 @@ namespace ProductCatalog.Web.Products.Dtos
             var name = ProductName.TryCreate(Name);
             var description = ProductDescription.TryCreate(Description);
             var dimension = Dimension.Validate();
-            var weight = Hexagon.Products.Aggregate.Weight.TryGrams(Weight);
+            var weight = Shared.Domain.Weight.TryGrams(Weight);
             var categories = ValidateCategories(CategoryIds);
 
             var errors =

@@ -1,6 +1,6 @@
 using Shared.Core.DomainModeling;
 
-namespace ProductCatalog.Hexagon.Categories.Aggregate
+namespace Shared.Domain
 {
     public class CategoryId : Id<int>
     {

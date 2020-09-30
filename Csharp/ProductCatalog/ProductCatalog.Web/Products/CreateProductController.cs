@@ -9,6 +9,7 @@ using ProductCatalog.Web.Products.Dtos;
 using Shared.Core.Exceptions;
 using Shared.Core.Extensions;
 using Shared.Core.Validations;
+using Shared.Domain;
 
 namespace ProductCatalog.Web.Products
 {
