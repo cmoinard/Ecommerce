@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Pricing.Hexagon.ProductDiscounts.Aggregate;
 using Pricing.Hexagon.ProductDiscounts.PrimaryPorts;
 using Shared.Core.Extensions;
 using Shared.Domain;
@@ -32,9 +33,27 @@ namespace Pricing.Web.Controllers
 
             var strategies = await _useCase.GetGlobalDiscountStrategiesAsync(ids);
             
-            // TODO: Convert to Dto
+            var dtos =
+                strategies
+                    .Select(s => DiscountStrategyDto.FromDomain(s))
+                    .ToList();
             
-            return Ok(strategies);
+            return Ok(dtos);
         }
+    }
+
+    public class DiscountStrategyDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        
+        public static DiscountStrategyDto FromDomain(DiscountStrategy strategy) =>
+            new DiscountStrategyDto
+            {
+                Id = (int)strategy.Id,
+                Name = (string)strategy.Name,
+                Description = (string)strategy.Description,
+            };
     }
 }
