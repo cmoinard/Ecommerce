@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
 using Shared.Core.Exceptions;
@@ -9,23 +10,21 @@ namespace ProductCatalog.Hexagon.Categories.UseCases
     public class DeleteCategoryUseCase : IDeleteCategoryUseCase
     {
         private readonly ICategoriesRepository _repository;
-        private readonly IDeleteCategory _deleteCategory;
 
-        public DeleteCategoryUseCase(
-            ICategoriesRepository repository,
-            IDeleteCategory deleteCategory)
+        public DeleteCategoryUseCase(ICategoriesRepository repository)
         {
             _repository = repository;
-            _deleteCategory = deleteCategory;
         }
         
-        public async Task DeleteAsync(CategoryId id)
+        public async Task DeleteAsync(CategoryId categoryId)
         {
-            var category = await _repository.GetByIdAsync(id);
-            if (category == null)
-                throw new NotFoundException<CategoryId>(id);
+            var exists = await _repository.ExistsAsync(categoryId);
+            if (!exists)
+            {
+                throw new NotFoundException<CategoryId>(categoryId);
+            }
 
-            await _deleteCategory.DeleteAsync(category);
+            await _repository.DeleteAsync(categoryId);
         }
     }
 }

@@ -3,7 +3,7 @@ using Shared.Domain;
 
 namespace Pricing.Hexagon.Products.Aggregate
 {
-    public class ProductPrice : AggregateRoot<ProductId>
+    public class ProductPrice : AggregateRoot<ProductId>
     {
         public ProductPrice(ProductId id, Price price) 
             : base(id)

@@ -1,6 +1,9 @@
 using System.Linq;
 using System.Threading.Tasks;
+using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
+using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using Shared.Core;

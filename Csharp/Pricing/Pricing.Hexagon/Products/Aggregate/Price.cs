@@ -25,6 +25,9 @@ namespace Pricing.Hexagon.Products.Aggregate
 
             return errors;
         }
+        
+        public static explicit operator decimal(Price valueObject) => 
+            valueObject.InternalValue;
 
         public static Price operator *(Price p, decimal v) =>
             new Price(p.InternalValue * v);

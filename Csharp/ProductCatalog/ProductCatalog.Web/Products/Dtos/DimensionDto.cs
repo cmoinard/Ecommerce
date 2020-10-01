@@ -53,7 +53,7 @@ namespace ProductCatalog.Web.Products.Dtos
                 SizeErrors;
         }
         
-        public class HeightValidationError : SizeValidationError
+        public class HeightValidationError : SizeValidationError
         {
             public HeightValidationError(NonEmptyList<ValidationError> sizeErrors)
                 : base(sizeErrors)
@@ -61,7 +61,7 @@ namespace ProductCatalog.Web.Products.Dtos
             }
         }
         
-        public class WidthValidationError : SizeValidationError
+        public class WidthValidationError : SizeValidationError
         {
             public WidthValidationError(NonEmptyList<ValidationError> sizeErrors) 
                 : base(sizeErrors)
@@ -69,7 +69,7 @@ namespace ProductCatalog.Web.Products.Dtos
             }
         }
         
-        public class LengthValidationError : SizeValidationError
+        public class LengthValidationError : SizeValidationError
         {
             public LengthValidationError(NonEmptyList<ValidationError> sizeErrors) 
                 : base(sizeErrors)

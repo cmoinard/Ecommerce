@@ -49,8 +49,8 @@ namespace Shared.Core.DomainModeling
 
     public abstract class StringBasedValueObject : SimpleValueObject<string>
     {
-        protected StringBasedValueObject(string internalValue)
-            : base(internalValue)
+        protected StringBasedValueObject(string description)
+            : base(description)
         {
         }
         

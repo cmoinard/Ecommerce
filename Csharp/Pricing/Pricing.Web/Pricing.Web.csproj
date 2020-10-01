@@ -9,7 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Web\Shared.Web.csproj" />
       <ProjectReference Include="..\Pricing.Hexagon\Pricing.Hexagon.csproj" />
-      <ProjectReference Include="..\Pricing.Infra\Pricing.Infra.csproj" />
+      <ProjectReference Include="..\Pricing.SecondaryAdapters\Pricing.SecondaryAdapters.csproj" />
     </ItemGroup>
 
 

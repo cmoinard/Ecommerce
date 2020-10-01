@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using Shared.Core.Exceptions;
 using Shared.Core.Validations;
 using Shared.Domain;
 
@@ -22,11 +23,22 @@ namespace ProductCatalog.Web.Products
         [HttpPatch("{id}/name")]
         public async Task<IActionResult> ChangeNameAsync(Guid id, [FromBody]Dto dto)
         {
-            var name = dto.Validate();
+            try
+            {
+                var name = dto.Validate();
             
-            await _useCase.ChangeNameAsync(new ProductId(id), name.Value);
+                await _useCase.ChangeNameAsync(new ProductId(id), name.Value);
             
-            return Ok();
+                return Ok();
+            }
+            catch (NotFoundException<ProductId>)
+            {
+                return NotFound();
+            }
+            catch (ValidationException)
+            {
+                return BadRequest();
+            }
         }
 
         public class Dto

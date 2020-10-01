@@ -21,7 +21,7 @@ namespace Shared.Domain
         public int ToGrams() => _grams;
 
         public static Weight Grams(int grams) => new Weight(grams);
-        public static Weight Kg(int kg) => new Weight(kg * 1000);
+        public static Weight Kg(decimal kg) => new Weight((int)(kg * 1000));
         
         public static Weight operator +(Weight w1, Weight w2) =>
             new Weight(w1.InternalValue + w2.InternalValue);

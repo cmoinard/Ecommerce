@@ -1,4 +1,6 @@
 using System.Linq;
+using ProductCatalog.Hexagon.Categories;
+using ProductCatalog.Hexagon.Categories.Aggregate;
 using Shared.Core;
 using Shared.Core.DomainModeling;
 using Shared.Core.Extensions;
@@ -41,6 +43,4 @@ namespace ProductCatalog.Hexagon.Products.Aggregate
                         .ToNonEmptyList();
         }
     }
-    
-    
 }

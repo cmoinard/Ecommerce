@@ -3,11 +3,13 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <OutputType>Library</OutputType>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\Shared\Shared.Web\Shared.Web.csproj" />
-      <ProjectReference Include="..\ProductCatalog.Infra\ProductCatalog.Infra.csproj" />
+      <ProjectReference Include="..\ProductCatalog.Hexagon\ProductCatalog.Hexagon.csproj" />
+      <ProjectReference Include="..\ProductCatalog.SecondaryAdapters\ProductCatalog.SecondaryAdapters.csproj" />
     </ItemGroup>
 
     <ItemGroup>

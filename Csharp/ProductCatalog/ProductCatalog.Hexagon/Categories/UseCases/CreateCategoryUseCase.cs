@@ -1,41 +1,31 @@
+using System;
 using System.Threading.Tasks;
 using ProductCatalog.Hexagon.Categories.Aggregate;
 using ProductCatalog.Hexagon.Categories.PrimaryPorts;
 using ProductCatalog.Hexagon.Categories.SecondaryPorts;
-using Shared.Core.Exceptions;
+using Shared.Core.Extensions;
+using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Categories.UseCases
 {
     public class CreateCategoryUseCase : ICreateCategoryUseCase
     {
         private readonly ICategoriesRepository _repository;
-        private readonly ICreateCategory _createCategory;
 
-        public CreateCategoryUseCase(
-            ICategoriesRepository repository,
-            ICreateCategory createCategory)
+        public CreateCategoryUseCase(ICategoriesRepository repository)
         {
             _repository = repository;
-            _createCategory = createCategory;
         }
 
-        public async Task<Category> CreateAsync(UncreatedCategory category)
+        public async Task<CategoryId> CreateAsync(UncreatedCategory category)
         {
-            var nameAlreadyExists = await _repository.NameExistsAsync(category.Name);
-            if (nameAlreadyExists)
+            if (await _repository.NameAlreadyExistsAsync(category.Name))
+            {
                 throw new CategoryNameAlreadyExistsException(category.Name);
-
-            return await _createCategory.CreateAsync(category);
+            }
+            
+            var categoryId = await _repository.CreateAsync(category);
+            return categoryId;
         }
-    }
-
-    public class CategoryNameAlreadyExistsException : DomainException
-    {
-        public CategoryNameAlreadyExistsException(CategoryName name)
-        {
-            Name = name;
-        }
-
-        public CategoryName Name { get; }
     }
 }

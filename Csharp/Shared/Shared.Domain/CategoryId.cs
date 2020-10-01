@@ -4,8 +4,7 @@ namespace Shared.Domain
 {
     public class CategoryId : Id<int>
     {
-        public CategoryId(int id) 
-            : base(id)
+        public CategoryId(int internalValue) : base(internalValue)
         {
         }
     }

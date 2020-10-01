@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using Shared.Core.Exceptions;
 using Shared.Domain;
 
 namespace ProductCatalog.Web.Products
@@ -20,8 +22,15 @@ namespace ProductCatalog.Web.Products
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            await _useCase.DeleteAsync(new ProductId(id));
-            return Ok();
+            try
+            {
+                await _useCase.DeleteAsync(new ProductId(id));
+                return Ok();
+            }
+            catch (NotFoundException<ProductId>)
+            {
+                return Ok();
+            }
         }
     }
 }

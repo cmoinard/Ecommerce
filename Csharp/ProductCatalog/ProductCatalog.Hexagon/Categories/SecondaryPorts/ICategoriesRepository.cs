@@ -8,10 +8,11 @@ namespace ProductCatalog.Hexagon.Categories.SecondaryPorts
 {
     public interface ICategoriesRepository
     {
-        Task<Category?> GetByIdAsync(CategoryId id);
-
-        Task<bool> NameExistsAsync(CategoryName name);
-        Task<IReadOnlyCollection<Category>> GetAsync();
-        Task<IReadOnlyCollection<CategoryId>> GetNonExistentIdsAsync(NonEmptyList<CategoryId> ids);
+        Task<IReadOnlyCollection<Category>> GetAllAsync();
+        Task<bool> ExistsAsync(CategoryId categoryId);
+        Task DeleteAsync(CategoryId categoryId);
+        Task<bool> NameAlreadyExistsAsync(CategoryName categoryName);
+        Task<CategoryId> CreateAsync(UncreatedCategory categoryName);
+        Task<IReadOnlyCollection<CategoryId>> GetNonExistentIdsAsync(NonEmptyList<CategoryId> categoryIds);
     }
 }

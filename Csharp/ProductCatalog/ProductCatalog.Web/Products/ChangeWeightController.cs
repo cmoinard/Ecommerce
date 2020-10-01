@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
+using ProductCatalog.Hexagon.Products.Aggregate;
+using Shared.Core.Exceptions;
 using Shared.Core.Validations;
 using Shared.Domain;
 
@@ -21,10 +23,21 @@ namespace ProductCatalog.Web.Products
         [HttpPatch("{id}/weight")]
         public async Task<IActionResult> ChangeWeightAsync(Guid id, [FromBody]Dto dto)
         {
-            var weight = dto.Validate();
+            try
+            {
+                var weight = dto.Validate();
             
-            await _useCase.ChangeWeightAsync(new ProductId(id), weight.Value);
-            return Ok();
+                await _useCase.ChangeWeightAsync(new ProductId(id), weight.Value);
+                return Ok();
+            }
+            catch (NotFoundException<ProductId>)
+            {
+                return NotFound();
+            }
+            catch (ValidationException)
+            {
+                return BadRequest();
+            }
         }
 
         public class Dto

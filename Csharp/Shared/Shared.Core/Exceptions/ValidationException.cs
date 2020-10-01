@@ -3,7 +3,7 @@ using Shared.Core.Validations;
 
 namespace Shared.Core.Exceptions
 {
-    public class ValidationException : Exception
+    public class ValidationException : Exception
     {
         public ValidationException(ValidationError error)
             : this(new NonEmptyList<ValidationError>(error))

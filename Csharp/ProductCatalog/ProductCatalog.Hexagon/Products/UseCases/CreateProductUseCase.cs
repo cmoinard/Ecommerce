@@ -3,6 +3,7 @@ using ProductCatalog.Hexagon.Products.Aggregate;
 using ProductCatalog.Hexagon.Products.PrimaryPorts;
 using ProductCatalog.Hexagon.Products.SecondaryPorts;
 using Shared.Core.Exceptions;
+using Shared.Domain;
 
 namespace ProductCatalog.Hexagon.Products.UseCases
 {
@@ -19,7 +20,7 @@ namespace ProductCatalog.Hexagon.Products.UseCases
             _createProduct = createProduct;
         }
         
-        public async Task<Product> CreateAsync(UncreatedProduct product)
+        public async Task<ProductId> CreateAsync(UncreatedProduct product)
         {
             var nameAlreadyExists = await _repository.NameExistsAsync(product.Name);
             if (nameAlreadyExists)
